@@ -182,6 +182,6 @@ This project is licensed under the terms of the [MIT License](LICENSE).
 
 If you use this framework or methodology in your academic studies, please cite:
 ```txt
-Padamanur, R. (2026). AI Financial Risk Copilot for Teen and Small Investors: A Human-Centered Explainable AI Framework for Safer Retail Investing.
+Rignesh P. (2026). AI Financial Risk Copilot for Teen and Small Investors: A Human-Centered Explainable AI Framework for Safer Retail Investing.
 ```
 For inquiries, pull requests, or research collaborations, please open a GitHub Issue or reach out to the author **Rignesh P**.
