@@ -62,3 +62,12 @@ By adjusting the explanation density, the AI Risk Copilot:
 3.  **Builds Structural Trust**, turning the AI into a supportive, conversational mentor rather than a cold algorithmic trading engine.
 
 This explainable, human-centered framework demonstrates that AI can be applied responsibly in finance to foster healthy investing behaviors and safeguard retail participants in volatile markets.
+
+---
+
+## 4. References & Citations
+
+1. Ribeiro, M. T., Singh, S., & Guestrin, C. (2016). "Why Should I Trust You?": Explaining the Predictions of Any Classifier. *Proceedings of the 22nd ACM SIGKDD*, 1135-1144.
+2. Lundberg, S. M., & Lee, S.-I. (2017). A Unified Approach to Interpreting Model Predictions. *Advances in Neural Information Processing Systems*, 4765-4774.
+3. Arrieta, A. B., Díaz-Rodríguez, N., Del Ser, J., Bennetot, A., Tabik, S., Albert, A., ... & Herrera, F. (2020). Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI. *Information Fusion*, 58, 82-115.
+4. Miller, T. (2019). Explanation in Artificial Intelligence: Insights from the Social Sciences. *Artificial Intelligence*, 267, 1-38.

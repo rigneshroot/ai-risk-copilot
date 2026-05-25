@@ -67,3 +67,12 @@ graph TD
 3.  **Action Directives**: Suggesting an immediate cooling-off period (e.g., stepping away for 24 hours, resetting margins to 1.0x) to encourage a return to safe, diversified allocations.
 
 By combining NLP-based psychological scans with quantitative risk engineering, the AI Financial Risk Copilot establishes a highly advanced, compassionate safety shield, fostering positive retail investing behaviors in volatile environments.
+
+---
+
+## 5. References & Citations
+
+1. Bollen, J., Mao, H., & Zeng, X. (2011). Twitter Mood Predicts the Stock Market. *Journal of Computational Science*, 2(1), 1-8.
+2. Tetlock, P. C. (2007). Giving Content to Investor Sentiment: The Role of Media in the Stock Market. *The Journal of Finance*, 62(3), 1139-1168.
+3. Lo, A. W., & Repin, D. V. (2002). The Psychophysiology of Real-Time Financial Decision Making. *Cognitive Brain Research*, 14(3), 323-339.
+4. Pang, B., & Lee, L. (2008). Opinion Mining and Sentiment Analysis. *Foundations and Trends in Information Retrieval*, 2(1–2), 1-135.

@@ -111,3 +111,12 @@ The resulting $ISS$ score categorizes the investor's exposure state and triggers
 | **0 – 49** | **Hyper Speculative** | **Activate Cognitive Circuit-Breaker.** Flag revenge trading or extreme FOMO herding. Present clear analogies on crash drawdowns, recommend cooling-off periods, and suggest defensive portfolio diversification. |
 
 This multi-dimensional scoring framework ensures that the AI Financial Risk Copilot acts as a rigorous mathematical and behavioral shield, safeguarding retail capital and fostering positive investing behaviors.
+
+---
+
+## 5. References & Citations
+
+1. Markowitz, H. (1952). Portfolio Selection. *The Journal of Finance*, 7(1), 77-91.
+2. Sharpe, W. F. (1966). Mutual Fund Performance. *The Journal of Business*, 39(1), 119-138.
+3. Herfindahl, O. C. (1950). *Concentration in the Steel Industry* (Doctoral dissertation, Columbia University).
+4. Lintner, J. (1965). The Valuation of Risk Assets and the Selection of Risky Investments in Stock Portfolios and Capital Budgets. *The Review of Economics and Statistics*, 47(1), 13-37.

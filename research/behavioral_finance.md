@@ -82,3 +82,15 @@ When the Behavioral NLP Module scans high-urgency or revenge-trading phrases (e.
 3.  **Active Cooling-Off Recommendation**: Guiding the user to shut down the app, step away, and review their initial long-term strategy rather than executing immediate speculative trades.
 
 By integrating these behavioral finance principles directly into the design of explainable AI interfaces, the framework actively works to protect small investors, raise financial literacy levels, and encourage healthier long-term investing habits.
+
+---
+
+## 4. References & Citations
+
+1. Kahneman, D., & Tversky, A. (1979). Prospect Theory: An Analysis of Decision under Risk. *Econometrica*, 47(2), 263-291.
+2. Tversky, A., & Kahneman, D. (1991). Loss Aversion in Riskless Choice: A Reference-Dependent Model. *The Quarterly Journal of Economics*, 106(4), 1039-1061.
+3. Thaler, R. H. (2015). *Misbehaving: The Making of Behavioral Economics*. W. W. Norton & Company.
+4. Thaler, R. H., & Sunstein, C. R. (2008). *Nudge: Improving Decisions About Health, Wealth, and Happiness*. Yale University Press.
+5. Barber, B. M., & Odean, T. (2001). Boys will be Boys: Gender, Overconfidence, and Common Stock Investment. *The Quarterly Journal of Economics*, 116(1), 261-292.
+6. Barber, B. M., & Odean, T. (2000). Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors. *The Journal of Finance*, 55(2), 773-806.
+7. Lo, A. W., Repin, D. V., & Steenbarger, B. N. (2005). Out of the Box: The Cognitive Neurosciences of Financial Decision Making. *Journal of Cognitive Neuroscience*, 17(8), 1300-1308.
