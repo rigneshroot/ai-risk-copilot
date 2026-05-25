@@ -49,6 +49,10 @@ graph TD
     E --> F[Investor Guidance Output]
 ```
 
+<p align="center">
+  <img src="assets/system_architecture.png" alt="AI Risk Copilot Systemic Architecture Diagram" width="750" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
+</p>
+
 1.  **User Input**: Ingests holdings, margin multiplier factors, liquid cash ratios, and chat logs.
 2.  **Portfolio Analysis Engine**: Computes statistical covariance standard deviations and concentration indexes using live-updating market parameters.
 3.  **Behavioral Detection Layer**: Scans textual inputs using regex sentiment classifiers to isolate cognitive biases (Loss Aversion, FOMO, Overconfidence).
@@ -75,6 +79,10 @@ Where:
 *   **Leverage Exposure ($LEV$)** ($w_{lev} = 0.15$): Margin borrows and option multiplier factors: $LEV = \min(100, (\text{Margin} - 1.0) \times 50)$.
 *   **Emotional Risk ($\mathcal{B}$)** ($w_{emo} = 0.20$): Parsed sentiment bias score (25 to 100).
 *   **Diversification Score ($DR$)** ($w_{div} = 0.10$): Average correlation profile among assets.
+
+<p align="center">
+  <img src="assets/scoring_cards.png" alt="Investor Safety Score (ISS) Categorical Metrics Chart" width="700" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
+</p>
 
 ---
 
@@ -129,6 +137,10 @@ AI RISK EXPOSURE DIAGNOSTICS: CASE 1
 =========================================
 ```
 
+<p align="center">
+  <img src="assets/concentration_heatmap.png" alt="Portfolio Asset Concentration Grid" width="550" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
+</p>
+
 > **Explainable AI Output**:
 > ⚠️ **"You have a massive amount riding on just one asset."**
 > *Placing 80% of your savings in TSLA is like riding a high-speed motorcycle without a helmet. It feels fast and exciting, but a single unexpected bump will cause severe damage to your wealth. Let's look at lowering your TSLA slider to 25% and shifting that capital into broad index mutual funds to build a protective financial cushion.*
@@ -156,6 +168,10 @@ AI BEHAVIORAL SAFETY DIAGNOSTICS: CASE 2
 - Consider cooling-off period: Suggest resetting margin borrow to 1.0x (None)
 =========================================
 ```
+
+<p align="center">
+  <img src="assets/emotional_radar.png" alt="Active Emotional-Risk Radar Map" width="500" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
+</p>
 
 > **Explainable AI Output (Cognitive Circuit-Breaker)**:
 > 🛑 **"It is completely natural to feel distressed when your hard-earned money dips."**

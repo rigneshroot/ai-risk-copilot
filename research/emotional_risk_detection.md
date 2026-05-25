@@ -26,6 +26,10 @@ The framework evaluates four distinct cognitive biases using regex dictionary le
 | **Overconfidence Bias** | Overestimating one's knowledge and trading skills, believing markets are risk-free. | `guaranteed`, `can't lose`, `100%`, `sure`, `risk-free`, `easy money`, `masterclass`, `expert`, `predict` | $\mathcal{B}_{over} = 55$ |
 | **Recency Bias** | Disproportionately weighting short-term past performance over long-term fundamentals. | `down for two days`, `up for three days`, `lately`, `recently`, `losing streak`, `winning streak` | $\mathcal{B}_{rec} = 50$ |
 
+ <p align="center">
+   <img src="../docs/assets/emotional_radar.png" alt="Active Emotional-Risk Radar Map" width="480" style="border-radius: 12px; border: 1px solid #334155; margin: 20px 0;"/>
+ </p>
+
 ---
 
 ## 3. Algorithmic Parsing & Math Formulations

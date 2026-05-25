@@ -43,6 +43,10 @@ graph TD
     D -->|High Probability of Further Loss| A
 ```
 
+ <p align="center">
+   <img src="../docs/assets/emotional_radar.png" alt="Active Emotional-Risk Radar Profile Map" width="480" style="border-radius: 12px; border: 1px solid #334155; margin: 20px 0;"/>
+ </p>
+
 ---
 
 ### 2.2 Herd Behavior & Social Proof

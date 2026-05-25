@@ -31,6 +31,10 @@ graph LR
     D & E --> F[Humanised Empathetic Guidance]
 ```
 
+ <p align="center">
+   <img src="../docs/assets/system_architecture.png" alt="AI Risk Copilot Systemic Architecture Diagram" width="700" style="border-radius: 12px; border: 1px solid #334155; margin: 20px 0;"/>
+ </p>
+
 ### 2.1 The Math-to-Analogies Translation Engine
 Rather than repeating standard investment disclaimers, the Copilot uses cognitive reframing to map mathematical parameters into real-world physical metaphors:
 

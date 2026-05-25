@@ -34,6 +34,10 @@ Default Category Weights:
 - Diversification Score (DR):    w_div = 0.10
 ```
 
+ <p align="center">
+   <img src="../docs/assets/scoring_cards.png" alt="Investor Safety Score (ISS) Categorical Metrics Chart" width="650" style="border-radius: 12px; border: 1px solid #334155; margin: 20px 0;"/>
+ </p>
+
 ---
 
 ## 3. Mathematical Formulations of Risk Categories
