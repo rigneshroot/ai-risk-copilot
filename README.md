@@ -220,29 +220,45 @@ ai-risk-copilot/
 
 ---
 
-## 🚀 Quickstart Guide
+## ⚡ 60-Second "Getting Started" Guide (How-To)
 
-### 1. Launch the Visual UI Dashboard (Instant)
-The frontend dashboard is designed to run locally in any browser with **zero dependencies or compile scripts**.
-1. Open the relative file `app/frontend/index.html` directly in Chrome, Safari, or Microsoft Edge.
-2. Drag the asset allocation, margin, or liquidity sliders to see HHI, Concentration Heatmaps, and 5-Year projections update live.
-3. Click any **Behavioral Bias Prompt** button or type in the chat input to see the **Emotional-Risk Radar Chart** plot shifts in real-time!
+Experience the full capabilities of the **AI Financial Risk Copilot & Cognition Framework** in under a minute through three interactive modules:
 
-### 2. Run the FastAPI Backend Prototype
-1. Ensure Python 3.8+ is installed.
-2. Navigate to `app/backend` and install dependencies:
+### 🎮 Module 1: Launch the Interactive Visual Dashboard (Instant — 5 Seconds)
+The premium dark-mode dashboard runs client-side in any browser with **zero dependencies, build scripts, or compiling**:
+1. Navigate to your local folder `app/frontend/` and double-click [index.html](file:///Users/subramanyaacharpadamanur/Documents/ai-risk-copilot/app/frontend/index.html) (or open it directly in Chrome, Safari, or Microsoft Edge).
+2. **Interact live**: 
+   * Drag the asset allocation, margin borrowing, or USD liquidity sliders to see the HHI concentration heatmaps, circular safety gauges, and 5-year projections update in real-time.
+   * Click any **Behavioral Trigger Prompt** buttons (e.g., *"Panic Recoup"*, *"FOMO Moon"*) or type custom queries in the chat box to see the **5-Axis Emotional-Risk Radar Profile** adjust its polygon live as you type.
+
+---
+
+### 🐍 Module 2: Start the Python FastAPI Developer API Server (30 Seconds)
+Run the analytical REST API backend to inspect quantitative ISS calculations, NLP sentiment scoring, and empathetic explanation payloads:
+1. Open your terminal and navigate to the backend prototype directory:
+   ```bash
+   cd app/backend
+   ```
+2. Install the lightweight dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Start the server:
+3. Boot the Uvicorn web server:
    ```bash
    uvicorn main:app --reload
    ```
-4. Access local docs at: `http://127.0.0.1:8000/docs`
+4. **Inspect the endpoints**: Open `http://127.0.0.1:8000/docs` in your browser to interact with the auto-generated Swagger API docs (`/analyze-portfolio`, `/analyze-sentiment`, and `/explain-safety`).
 
-### 3. Open the Research Jupyter Notebook
-1. Navigate to `research/notebooks/risk_copilot_demo.ipynb`.
-2. Execute code blocks top-to-bottom to verify HHI, covariance volatility matrices, and profile charts.
+---
+
+### 📊 Module 3: Compile Visual Assets & Verify Mathematics (25 Seconds)
+Execute the underlying visual compilation pipeline to re-generate the high-fidelity chart assets:
+1. Return to the root directory and run the automated Matplotlib asset pipeline:
+   ```bash
+   python3 research/notebooks/generate_assets.py
+   ```
+2. **Review output assets**: The script will verify all covariance calculations and write five glowing, high-contrast dark-mode PNG charts directly into your [docs/assets/](file:///Users/subramanyaacharpadamanur/Documents/ai-risk-copilot/docs/assets) directory.
+3. **Run Notebook Sandbox**: Open [risk_copilot_demo.ipynb](file:///Users/subramanyaacharpadamanur/Documents/ai-risk-copilot/research/notebooks/risk_copilot_demo.ipynb) inside your Jupyter environment to step through the mathematical formulations of the Herfindahl-Hirschman Index and covariance volatility metrics.
 
 ---
 
