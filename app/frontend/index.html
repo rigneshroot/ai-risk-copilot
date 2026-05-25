@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Financial Risk Copilot - Human-Centered XAI Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Inline styles or Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo-section">
+                <img src="../../docs/assets/logo.png" alt="AI Risk Copilot Logo" class="header-logo">
+                <div class="header-titles">
+                    <h1>AI Financial Risk Copilot</h1>
+                    <p class="subtitle">Human-Centered Explainable AI (XAI) Framework for Retail Investors</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <span class="badge badge-primary">Research Prototype v1.0</span>
+                <span class="badge badge-success">Live Engine</span>
+            </div>
+        </header>
+
+        <!-- Live Ticker Bar (Aesthetic Micro-Animation) -->
+        <div class="ticker-bar">
+            <div class="ticker-content">
+                <span class="ticker-item"><span class="ticker-symbol">SPY</span> <span class="ticker-val">442.10</span> <span class="ticker-up">▲ 0.42%</span></span>
+                <span class="ticker-item"><span class="ticker-symbol">QQQ</span> <span class="ticker-val">372.50</span> <span class="ticker-up">▲ 0.88%</span></span>
+                <span class="ticker-item"><span class="ticker-symbol">BTC</span> <span class="ticker-val">68,450.00</span> <span class="ticker-down">▼ 2.15%</span></span>
+                <span class="ticker-item"><span class="ticker-symbol">ETH</span> <span class="ticker-val">3,420.00</span> <span class="ticker-down">▼ 1.84%</span></span>
+                <span class="ticker-item"><span class="ticker-symbol">MEME</span> <span class="ticker-val">0.024</span> <span class="ticker-down">▼ 12.45%</span></span>
+                <span class="ticker-item"><span class="ticker-symbol">SHIB</span> <span class="ticker-val">0.000021</span> <span class="ticker-up">▲ 4.12%</span></span>
+            </div>
+        </div>
+
+        <!-- Dashboard Layout Grid -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Panel: Portfolio Sandbox -->
+            <section class="panel glass-panel portfolio-sandbox">
+                <div class="panel-header">
+                    <div class="icon-circle bg-emerald">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h2>Portfolio Asset Sandbox</h2>
+                </div>
+                <p class="panel-desc">Simulate a retail investor's assets. Adjust weights to see the quantitative Concentration Risk change in real-time.</p>
+
+                <!-- Asset Allocation Sliders -->
+                <div class="asset-list">
+                    
+                    <!-- Asset 1: High Tech Stock -->
+                    <div class="asset-card">
+                        <div class="asset-info">
+                            <span class="asset-name">Tech Giants (AAPL, NVDA, MSFT)</span>
+                            <span class="asset-weight-value" id="weight-tech-val">35%</span>
+                        </div>
+                        <input type="range" class="slider slider-tech" id="slider-tech" min="0" max="100" value="35">
+                        <div class="asset-meta">
+                            <span class="asset-type type-equity">Equity</span>
+                            <span class="asset-vol">Historical Volatility: Low (18%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Asset 2: Meme Stocks -->
+                    <div class="asset-card">
+                        <div class="asset-info">
+                            <span class="asset-name">Speculative "Hype" Stocks (GME, AMC)</span>
+                            <span class="asset-weight-value" id="weight-meme-val">15%</span>
+                        </div>
+                        <input type="range" class="slider slider-meme" id="slider-meme" min="0" max="100" value="15">
+                        <div class="asset-meta">
+                            <span class="asset-type type-speculative">Speculative Equity</span>
+                            <span class="asset-vol">Historical Volatility: Extremely High (75%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Asset 3: Volatile Crypto -->
+                    <div class="asset-card">
+                        <div class="asset-info">
+                            <span class="asset-name">Meme Cryptocurrency (DOGE, SHIB)</span>
+                            <span class="asset-weight-value" id="weight-crypto-val">40%</span>
+                        </div>
+                        <input type="range" class="slider slider-crypto" id="slider-crypto" min="0" max="100" value="40">
+                        <div class="asset-meta">
+                            <span class="asset-type type-crypto">Cryptocurrency</span>
+                            <span class="asset-vol">Historical Volatility: Hyper High (95%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Asset 4: Broad Mutual Funds -->
+                    <div class="asset-card">
+                        <div class="asset-info">
+                            <span class="asset-name">Broad Index Fund (SPY, VOO)</span>
+                            <span class="asset-weight-value" id="weight-index-val">10%</span>
+                        </div>
+                        <input type="range" class="slider slider-index" id="slider-index" min="0" max="100" value="10">
+                        <div class="asset-meta">
+                            <span class="asset-type type-index">Diversified Index</span>
+                            <span class="asset-vol">Historical Volatility: Safe (15%)</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sandbox Total Weight Check -->
+                <div class="portfolio-total-check" id="portfolio-total-msg">
+                    <span class="total-label">Total Portfolio Allocation:</span>
+                    <span class="total-val" id="portfolio-total-val">100%</span>
+                </div>
+
+                <!-- Sandbox Analytics Outputs -->
+                <div class="sandbox-analytics">
+                    <div class="analytics-card">
+                        <div class="analytics-label">Diversification Score (DHS)</div>
+                        <div class="analytics-value text-warning" id="dhs-val">58.5</div>
+                        <div class="dhs-meter-wrapper">
+                            <div class="dhs-meter-bar bg-warning" id="dhs-bar" style="width: 58.5%;"></div>
+                        </div>
+                        <div class="analytics-sub" id="dhs-desc">Moderate Diversification (Concentrated in Crypto)</div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <div class="analytics-label">Portfolio Volatility (Est.)</div>
+                        <div class="analytics-value text-danger" id="vol-val">48.2%</div>
+                        <div class="analytics-sub">S&P 500 Baseline: 15%</div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Pie Chart Sandbox (Canvas-based) -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Visual Allocation Share</h3>
+                    <canvas id="portfolio-pie-chart" width="200" height="200"></canvas>
+                    <div class="chart-legend" id="chart-legend">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Panel: Copilot Advisor Console -->
+            <section class="panel glass-panel copilot-advisor">
+                <div class="panel-header">
+                    <div class="icon-circle bg-violet">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h2>Copilot Conversational Safety Console</h2>
+                </div>
+                
+                <!-- Safety Score Panel -->
+                <div class="safety-score-panel">
+                    <div class="gauge-container">
+                        <!-- Canvas-based Gauge -->
+                        <canvas id="safety-gauge" width="120" height="120"></canvas>
+                        <div class="gauge-overlay">
+                            <span class="gauge-number" id="iss-number">62</span>
+                            <span class="gauge-label">ISS</span>
+                        </div>
+                    </div>
+                    <div class="safety-score-details">
+                        <h3>Investor Safety Score (ISS): <span class="text-warning" id="iss-rating">Cautious</span></h3>
+                        <p class="iss-math-desc">$$ISS = 100 - (\alpha \cdot CR + \beta \cdot VRF + \gamma \cdot \mathcal{B})$$</p>
+                        <div class="safety-breakdown">
+                            <span class="breakdown-pill">Concentration: <b id="breakdown-cr">41</b></span>
+                            <span class="breakdown-pill">Volatility: <b id="breakdown-vrf">78</b></span>
+                            <span class="breakdown-pill">Behavioral Risk: <b id="breakdown-b">25</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Behavioral Bias Alert Bar -->
+                <div class="bias-alert-bar" id="bias-alert">
+                    <div class="bias-alert-icon">⚠️</div>
+                    <div class="bias-alert-text">
+                        <strong>Behavioral Bias Signal:</strong> <span id="bias-active-tags">None Active (Healthy State)</span>
+                    </div>
+                </div>
+
+                <!-- Conversation Log -->
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        
+                        <!-- System Message -->
+                        <div class="message message-system">
+                            <div class="message-sender">🤖 Copilot Risk Assistant</div>
+                            <div class="message-content">
+                                <p>Welcome to the <strong>AI Financial Risk Copilot</strong> dashboard. I am your behavioral advisor, here to translate statistics, point out emotional investing signals, and protect your capital.</p>
+                                <p>Adjust your portfolio weights in the sandbox on the left, then select one of the typical retail investor statements below or type your own question to see my **Empathetic Translation Engine** and safety alerts in action!</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Sample Presets (For ease of demonstration) -->
+                <div class="presets-section">
+                    <div class="presets-title">Simulate Common Investor Biases:</div>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-statement="Crypto is rocket booming right now, I'm putting 100% of my college savings in Dogecoin!">🚀 FOMO / Herd Behavior</button>
+                        <button class="preset-btn" data-statement="I lost $800 on meme stocks yesterday. I'm panic-selling everything to buy highly leveraged options and win it back immediately!">📉 Revenge Trading / Loss Aversion</button>
+                        <button class="preset-btn" data-statement="This new trading system is risk-free and guaranteed. I'm 100% sure I can't lose money on these trades.">🏆 Overconfidence Bias</button>
+                        <button class="preset-btn" data-statement="My broad index funds have been down for three days straight. I can't take this stress, I'm selling all my mutual funds right now to hold pure cash.">🥶 Panic / Recency Bias</button>
+                    </div>
+                </div>
+
+                <!-- Chat Input Section -->
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type an investment intention (e.g., 'I want to put all my cash in AAPL because it is going up')..." autocomplete="off">
+                    <button id="chat-send" class="btn btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+
+                <!-- Projection Chart Simulator (Section 7.5 Scenario Simulation) -->
+                <div class="projection-panel">
+                    <div class="projection-header">
+                        <h4>5-Year Portfolio Risk Projections</h4>
+                        <span class="badge badge-info">Empathy Scenario Simulator</span>
+                    </div>
+                    <p class="projection-desc">Translating volatility into simple potential futures, showing why diversification cushion matters.</p>
+                    <canvas id="projection-line-chart" width="400" height="150"></canvas>
+                </div>
+
+            </section>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="app-footer-bar">
+            <p>Designed for young and retail investors. Underpinned by human-centered explainable artificial intelligence (XAI). Licensed under MIT.</p>
+            <p>Independent Variables (IV) Manipulation Sandbox. Calculated statistically.</p>
+        </footer>
+
+    </div>
+</body>
+</html>

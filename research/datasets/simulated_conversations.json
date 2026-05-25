@@ -1,0 +1,80 @@
+[
+  {
+    "conversation_id": "conv_001",
+    "investor_profile": {
+      "age": 18,
+      "experience_years": 0.5,
+      "capital_usd": 10000
+    },
+    "user_statement": "Everyone on TikTok is saying this new coin is going to the moon by Friday! I'm putting all my savings in it.",
+    "analysis": {
+      "detected_biases": ["FOMO", "Herd Behavior"],
+      "behavioral_risk_score": 75.0,
+      "concentration_risk": "Critical"
+    },
+    "matched_portfolio_weights": {
+      "tech_giants": 0.0,
+      "hype_equities": 0.0,
+      "meme_crypto": 100.0,
+      "broad_indexes": 0.0
+    },
+    "copilot_humanised_response": {
+      "safety_rating": "Danger",
+      "empathetic_opening": "It's super exciting to see an asset rally, and our brains naturally panic thinking we're missing out on a golden chance.",
+      "metric_translation": "However, placing 100% of your capital into a highly volatile meme coin is like standing directly inside a roaring fire. It looks warm, but a sudden shift in wind can wipe you out instantly.",
+      "educational_lesson": "Diversification is your shield. Keeping even 50% in broad indexes ensures that if this speculative coin plunges, your financial future doesn't plunge with it."
+    }
+  },
+  {
+    "conversation_id": "conv_002",
+    "investor_profile": {
+      "age": 21,
+      "experience_years": 1.0,
+      "capital_usd": 10000
+    },
+    "user_statement": "My stock portfolio dropped 15% this morning. I can't take this stress! I need to buy highly volatile options to make this money back immediately, or I'm selling everything.",
+    "analysis": {
+      "detected_biases": ["Loss Aversion", "Revenge Trading"],
+      "behavioral_risk_score": 90.0,
+      "concentration_risk": "Elevated"
+    },
+    "matched_portfolio_weights": {
+      "tech_giants": 40.0,
+      "hype_equities": 35.0,
+      "meme_crypto": 25.0,
+      "broad_indexes": 0.0
+    },
+    "copilot_humanised_response": {
+      "safety_rating": "Danger",
+      "empathetic_opening": "Seeing your hard-earned savings drop feels like a physical punch. Our minds are hardwired to do anything to stop that pain, leading us to take even bigger risks to 'get it back'.",
+      "metric_translation": "Your current portfolio volatility is estimated at 42%. This means sudden swings are expected. Double-down trading in high-beta options during a correction is like speeding in heavy rain: high danger, very little progress.",
+      "educational_lesson": "Market corrections are normal. Panic selling locks in those paper losses forever. Let's take a deep breath and look at how broad indexes have historically bounced back over time."
+    }
+  },
+  {
+    "conversation_id": "conv_003",
+    "investor_profile": {
+      "age": 19,
+      "experience_years": 0.2,
+      "capital_usd": 10000
+    },
+    "user_statement": "This new stock trading strategy I found is guaranteed and risk-free. I've won three trades in a row, I'm 100% sure I can't lose on the next one.",
+    "analysis": {
+      "detected_biases": ["Overconfidence Bias", "Recency Bias"],
+      "behavioral_risk_score": 80.0,
+      "concentration_risk": "Moderate"
+    },
+    "matched_portfolio_weights": {
+      "tech_giants": 50.0,
+      "hype_equities": 50.0,
+      "meme_crypto": 0.0,
+      "broad_indexes": 0.0
+    },
+    "copilot_humanised_response": {
+      "safety_rating": "Cautious",
+      "empathetic_opening": "Congrats on the winning streak! It feels amazing when your trades hit. But believing a strategy is '100% risk-free' is the most common cognitive trap in investing.",
+      "metric_translation": "Your portfolio is split 50/50 in concentrated equities. This is like driving without a seatbelt because you're a great driver: it works perfectly until someone else hits you from the side.",
+      "educational_lesson": "Unforeseen events happen. A safe, secure portfolio uses broad index allocations (like VOO or SPY) to cushion the unpredictable days. Let's research historical market shocks."
+    }
+  }
+]
