@@ -36,7 +36,7 @@ By converting complex mathematical risk equations into empathetic, humanised nat
 
 ---
 
-## 🛠️ Advanced System Architecture
+## 🛠️ System Architecture
 
 The cognition framework processes user inputs through a six-stage sequential pipeline:
 
@@ -54,7 +54,26 @@ graph TD
 3.  **Behavioral Detection Layer**: Scans user text inputs using NLP sentiment dictionaries to isolate cognitive biases (Loss Aversion, FOMO, Overconfidence).
 4.  **Risk Scoring System**: Combines portfolio exposures and conversational sentiment into our proprietary six-category model.
 5.  **Explainable AI (XAI) Engine**: Converts raw numbers into humanised analogies using templates and LLM guidance.
-6.  **Investor Guidance Output**: Delivers dynamic safety scorecards, radar profile charts, color-coded heatmaps, and action directives.
+6.  **Investor Guidance Output**: Delivers humanised analogies, dynamic safety scorecards, radar profile charts, and color-coded heatmaps.
+
+---
+
+## 📊 Quantitative Benchmark Risk Evaluations
+
+To validate the scoring framework, we model two distinct portfolio profiles representing polar ends of retail investing behaviors:
+
+| Risk Dimension | Portfolio A (Diversified Anchor) | Portfolio B (Speculative Revenge) |
+| :--- | :--- | :--- |
+| **Asset Allocations** | 40% Broad VOO Index, 40% Apple ($AAPL$), 20% Liquid Cash | 40% Tech Giants, 35% GameStop ($GME$), 25% Dogecoin ($DOGE$), 0% Cash |
+| **Margin Leverage** | 1.0x (None) | 2.0x Margin active |
+| **User Sentiment State** | Rational / Neutral (Baseline) | Extreme Revenge Panic (Loss Aversion) |
+| **Concentration Risk ($CR$)** | `32.0 / 100` (Low HHI) | `41.0 / 100` (Elevated HHI) |
+| **Volatility Risk ($VR$)** | `26.2 / 100` (Estimated standard deviation: 12%) | `89.5 / 100` (Estimated standard deviation: 27% * 2x margin = 54%) |
+| **Liquidity Risk ($LR$)** | `40.0 / 100` (Safe cash and index buffers) | `100.0 / 100` (Critical illiquidity; no cash or VOO buffers) |
+| **Leverage Risk ($LEV$)** | `0.0 / 100` (No borrowing) | `50.0 / 100` (Active borrowing multiplier) |
+| **Behavioral Risk ($\mathcal{B}$)** | `25.0 / 100` (Rational baseline) | `95.0 / 100` (Revenge trading loop parsed) |
+| **Diversification Score ($DR$)**| `32.0 / 100` (Favorable inverse HHI) | `41.0 / 100` (Elevated correlation) |
+| **Investor Safety Score ($ISS$)**| **`84 / 100` (Secure / Healthy)** | **`31 / 100` (Danger / Speculative)** |
 
 ---
 
@@ -64,7 +83,7 @@ To demonstrate the structural sophistication of the framework, we outline two co
 
 ### Case Study 1: Asymmetric Momentum Portfolio (Risk Analysis Example)
 
-*   **User Portfolio Input**: 80% Tesla ($TSLA$), 20% Bitcoin ($BTC$). Margin: 1.0x (None). High-Liquidity Cash: 5%.
+*   **User Portfolio Input**: 80% Tesla ($TSLA$), 20% Bitcoin ($BTC$). Margin: 1.0x. High-Liquidity Cash: 5%.
 *   **System Diagnostics**:
     *   **HHI Concentration Index**: $0.80^2 + 0.20^2 = 0.68$ (Diversification score DHS is a poor `32.0 / 100`).
     *   **Estimated Portfolio Volatility**: `43.2%` (Critical; S&P 500 baseline is 15%).
@@ -76,8 +95,8 @@ AI RISK EXPOSURE DIAGNOSTICS: CASE 1
 =========================================
 [Detected Risks]
 - High concentration exposure (80% capital in TSLA)
-- Elevated volatility risk (Annualized volatility 43.2%)
-- Correlated speculative assets (TSLA and BTC exhibit high covariance)
+- Critical volatility risk (Annualized volatility 43.2%)
+- Correlated speculative assets (TSLA and BTC exhibit positive covariance)
 
 [Behavioral Signals]
 - Aggressive growth positioning (momentum chasing)
@@ -99,9 +118,8 @@ AI RISK EXPOSURE DIAGNOSTICS: CASE 1
 ### Case Study 2: Emotional Loss Distress (Behavioral & Revenge Trading Example)
 
 *   **User Chat Input**: *"I lost $1,500 on meme stocks yesterday. I'm panic-selling everything to buy highly leveraged margin options and get it back immediately!"*
-*   **System Diagnostics**:
-    *   **NLP Sentiment Triggers**: Revenge Trading Index (`95/100`), Loss Aversion/Panic (`90/100`).
-    *   **Composite Behavioral Risk Score ($\mathcal{B}$)**: **`95 / 100`** (Critical).
+*   **NLP Sentiment Triggers**: Revenge Trading Index (`95/100`), Loss Aversion/Panic (`90/100`).
+*   **Composite Behavioral Risk Score ($\mathcal{B}$)**: **`95 / 100`** (Critical).
 
 ```txt
 =========================================
@@ -110,7 +128,7 @@ AI BEHAVIORAL SAFETY DIAGNOSTICS: CASE 2
 [Detected Signals]
 - Revenge trading tendency (urgent desire to recover loss)
 - Emotional distress (panic response to market downturn)
-- Elevated impulsive behavior risk (high probability of total wipeout on margin)
+- Elevated impulsive behavior risk (high probability of margin wipeouts)
 
 [AI Safety Guidance]
 - Avoid increasing position size emotionally: Freeze active trades for 24 hours
@@ -122,6 +140,24 @@ AI BEHAVIORAL SAFETY DIAGNOSTICS: CASE 2
 > **Explainable AI Output (Cognitive Circuit-Breaker)**:
 > 🛑 **"It is completely natural to feel distressed when your hard-earned money dips."**
 > *Psychological studies prove that the pain of a loss feels twice as sharp as the joy of a win. Our brains are hardwired to panic in these moments and take wild risks to 'get it back'. But executing leveraged options trades in a panic is like speeding through heavy rain: high danger, very little progress. Let's reset your margin slider to 1.0x and review your long-term 5-year strategy together.*
+
+---
+
+## 🎨 Visual UX Dashboards (Visual Proof)
+
+To overcome the cognitive block of retail investors, the framework implements a premium visual UI. Below is the visual dashboard layout of the **AI Financial Risk Copilot & Cognition Framework**.
+
+<p align="center">
+  <img src="docs/assets/dashboard_screenshot.png" alt="Safety Dashboard Visual Screenshot Mockup" width="750" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
+</p>
+*(Note: To display your local browser dashboard screenshot here, open app/frontend/index.html in Google Chrome, take a screenshot of your screen, and save the image file as `docs/assets/dashboard_screenshot.png`!)*
+
+### Visual Components:
+1.  **Diversification Donut Chart**: Dynamic canvas showing asset allocation weight splits.
+2.  **Concentration Heatmap**: A color-coded grid highlighting individual asset exposures (Safe ➔ green, Elevated ➔ amber, Critical ➔ glowing red).
+3.  **Volatility Risk Gauge**: A circular neon arc showing historical price swings relative to benchmark indices.
+4.  **Investor Safety Score Card**: A detailed breakdown card displaying individual weights for Concentration, Volatility, Liquidity, Leverage, and Behavioral Risk.
+5.  **Emotional-Risk Radar Chart**: A five-axis canvas plotting *FOMO*, *Revenge Trading*, *Overconfidence*, *Recency*, and *Rationality* live as users interact.
 
 ---
 
@@ -140,21 +176,20 @@ $$ISS = 100 - \left( w_{con} \cdot CR + w_{vol} \cdot VR + w_{liq} \cdot LR + w_
 
 ---
 
-## 🎨 Visual UX Dashboards
+## ⚠️ System Limitations & Disclaimers
 
-To overcome the cognitive block of retail investors, the framework implements a premium visual UI:
+To build rigorous academic and operational credibility, we explicitly document the current constraints of the framework:
 
-1.  **Diversification Donut Chart**: Dynamic canvas showing asset allocation weight splits.
-2.  **Concentration Heatmap**: A color-coded grid highlighting individual asset exposures (Safe ➔ green, Elevated ➔ amber, Critical ➔ glowing red).
-3.  **Volatility Risk Gauge**: A circular neon arc showing historical price swings relative to benchmark indices.
-4.  **Investor Safety Score Card**: A detailed breakdown card displaying individual weights for Concentration, Volatility, Liquidity, Leverage, and Behavioral Risk.
-5.  **Emotional-Risk Radar Chart**: A five-axis canvas plotting *FOMO*, *Revenge Trading*, *Overconfidence*, *Recency*, and *Rationality* live as users interact.
+*   **AI Uncertainty & NLP Constraints**: The Behavioral Detection Layer uses lexicon regex models to scan user queries. Sarcasm, double negatives, or highly nuanced colloquialisms may lead to classification inaccuracies.
+*   **Psychological Inference Boundaries**: The framework evaluates *cognitive bias markers* exhibited through text and portfolio dynamics. It does not perform formal clinical diagnostic psychological evaluations.
+*   **Educational Scope Only**: **This project is for research and financial literacy education purposes only. It is not licensed financial, investment, or legal advice.** Users must consult with qualified, registered financial advisors before making actual transaction decisions.
+*   **Volatility Projection Approximations**: Future 5-year scenario projections are calculated based on annualized historical covariance matrices. They serve as approximate, interactive visual demonstrations of diversification, not guaranteed predictions of future asset returns.
 
 ---
 
 ## 📂 Repository Structure
 
-The workspace organizes application code and academic research into separate, modular folders:
+The workspace organizes application code and academic research into separate, modular folders with no absolute local folder references:
 
 ```txt
 ai-risk-copilot/
@@ -170,16 +205,17 @@ ai-risk-copilot/
 │       ├── main.py         # REST endpoints for portfolio HHI, sentiment, and ISS
 │       └── requirements.txt# Backend dependencies (fastapi, uvicorn, pydantic)
 └── research/               # Applied research root
-    ├── whitepaper/         # Academic research paper md source
+    ├── whitepaper/         # Rigorous academic-grade paper
     │   ├── ai_financial_risk_copilot.md #LaTeX formulations, case studies
     │   └── assets/         # Flowcharts and infographics
     ├── notebooks/          # Step-by-step Python mathematics demo
     │   └── risk_copilot_demo.ipynb # Jupyter notebook for metrics verification
     ├── datasets/           # Mock simulated datasets
     │   └── simulated_conversations.json # Dialogue training corpus
-    ├── behavioral_finance_notes.md  # Cognitive bias & circuit-breaker research
-    ├── explainable_ai_in_finance.md # Financial explainability AEG algorithms
-    └── investor_risk_scoring.md     # Math formulations behind the six-category ISS
+    ├── behavioral_finance.md       # Cognitive bias & circuit-breaker research
+    ├── explainable_ai.md           # Financial explainability AEG algorithms
+    ├── investor_safety_scoring.md  # Math formulations behind the six-category ISS
+    └── emotional_risk_detection.md # NLP lexicons & keyword parsing math
 ```
 
 ---
@@ -194,7 +230,7 @@ The frontend dashboard is designed to run locally in any browser with **zero dep
 
 ### 2. Run the FastAPI Backend Prototype
 1. Ensure Python 3.8+ is installed.
-2. Navigate to `app/backend/` and install dependencies:
+2. Navigate to `app/backend` and install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
@@ -209,6 +245,10 @@ The frontend dashboard is designed to run locally in any browser with **zero dep
 2. Execute code blocks top-to-bottom to verify HHI, covariance volatility matrices, and profile charts.
 
 ---
+
+## 📜 License
+
+This project is licensed under the terms of the [MIT License](LICENSE).
 
 ## 📝 Citation
 
