@@ -1,6 +1,6 @@
 /**
- * AI Financial Risk Copilot - Frontend Engine
- * Human-Centered Explainable AI (XAI) Simulation
+ * AI Financial Risk Copilot & Cognition Framework - Frontend Engine
+ * Advanced Visual UX and Six-Category ISS Scopes
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
         meme: 15,   // Speculative (High Volatility)
         crypto: 40, // Cryptocurrency (Hyper Volatility)
         index: 10   // Index Funds (Safe Volatility)
+    };
+
+    let parameters = {
+        leverage: 1.0, // Margin borrows (1.0x to 3.0x)
+        liquidity: 15  // High-liquidity cash ratio (0% to 50%)
     };
 
     const assetVols = {
@@ -27,7 +32,16 @@ document.addEventListener("DOMContentLoaded", () => {
         index: "#10b981"   // Success Emerald
     };
 
-    let activeBehavioralScore = 25; // Baseline curiosity risk
+    // 5-Axis Radar Chart target coordinates (FOMO, Revenge/Panic, Overconfidence, Recency, Rationality)
+    let radarPoints = {
+        fomo: 0.20,
+        revenge: 0.20,
+        overconfidence: 0.20,
+        recency: 0.20,
+        rationality: 0.90
+    };
+
+    let activeBehavioralScore = 25; // Default NLP risk factor
     let activeBiases = [];
 
     // --- DOM Elements ---
@@ -45,6 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
         index: document.getElementById("weight-index-val")
     };
 
+    const sliderLeverage = document.getElementById("slider-leverage");
+    const sliderLiquidity = document.getElementById("slider-liquidity");
+    const leverageValEl = document.getElementById("leverage-val");
+    const liquidityValEl = document.getElementById("liquidity-val");
+
     const dhsValEl = document.getElementById("dhs-val");
     const dhsBarEl = document.getElementById("dhs-bar");
     const dhsDescEl = document.getElementById("dhs-desc");
@@ -58,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const breakdownCR = document.getElementById("breakdown-cr");
     const breakdownVRF = document.getElementById("breakdown-vrf");
+    const breakdownLiq = document.getElementById("breakdown-liq");
+    const breakdownLev = document.getElementById("breakdown-lev");
     const breakdownB = document.getElementById("breakdown-b");
 
     const biasAlertEl = document.getElementById("bias-alert");
@@ -71,10 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Canvases
     const pieCanvas = document.getElementById("portfolio-pie-chart");
     const gaugeCanvas = document.getElementById("safety-gauge");
+    const radarCanvas = document.getElementById("emotional-radar-chart");
     const projectionCanvas = document.getElementById("projection-line-chart");
 
-    // --- Slider Allocation Balancer ---
-    // Distributes changes proportionally to other sliders to maintain exactly 100% total
+    // --- Slider Weight Balancing Logic ---
     function adjustSliders(changedAsset, newValue) {
         portfolio[changedAsset] = newValue;
         
@@ -87,20 +108,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 portfolio[key] = Math.round((portfolio[key] / sumOthers) * targetOthers);
             });
         } else {
-            // If others were zero, divide target equally
             otherAssets.forEach(key => {
                 portfolio[key] = Math.round(targetOthers / otherAssets.length);
             });
         }
 
-        // Adjust for rounding errors to guarantee sum is exactly 100
         let total = Object.values(portfolio).reduce((sum, v) => sum + v, 0);
         if (total !== 100) {
             let error = 100 - total;
             portfolio[otherAssets[0]] += error;
         }
 
-        // Sync inputs
+        // Sync weight display
         Object.keys(sliders).forEach(key => {
             sliders[key].value = portfolio[key];
             weightVals[key].innerText = portfolio[key] + "%";
@@ -109,16 +128,29 @@ document.addEventListener("DOMContentLoaded", () => {
         recalculateAnalytics();
     }
 
-    // Bind slider listeners
+    // Slider Event Listeners
     Object.keys(sliders).forEach(key => {
         sliders[key].addEventListener("input", (e) => {
             adjustSliders(key, parseInt(e.target.value) || 0);
         });
     });
 
-    // --- Portfolio Mathematics & Analytics Engine ---
+    sliderLeverage.addEventListener("input", (e) => {
+        let val = parseFloat(e.target.value) / 10;
+        parameters.leverage = val;
+        leverageValEl.innerText = val.toFixed(1) + "x" + (val > 1.0 ? " Margin active" : " (None)");
+        recalculateAnalytics();
+    });
+
+    sliderLiquidity.addEventListener("input", (e) => {
+        let val = parseInt(e.target.value) || 0;
+        parameters.liquidity = val;
+        liquidityValEl.innerText = val + "%";
+        recalculateAnalytics();
+    });
+
+    // --- Advanced Portfolio Risk Analytics Engine ---
     function recalculateAnalytics() {
-        // 1. Double check total weight
         let total = Object.values(portfolio).reduce((sum, v) => sum + v, 0);
         totalValEl.innerText = total + "%";
         
@@ -128,39 +160,37 @@ document.addEventListener("DOMContentLoaded", () => {
             totalMsgEl.className = "portfolio-total-check total-error";
         }
 
-        // 2. Compute Herfindahl-Hirschman Index (HHI) for concentration
+        // 1. Concentration Risk (CR) using HHI
         let hhi = 0;
         Object.keys(portfolio).forEach(key => {
             let w = portfolio[key] / 100;
             hhi += w * w;
         });
+        let cr = hhi * 100;
 
-        // 3. Compute Diversification Health Score (DHS)
+        // 2. Diversification Health Score (DHS)
         let dhs = (1 - hhi) * 100;
         dhsValEl.innerText = dhs.toFixed(1);
         dhsBarEl.style.width = dhs.toFixed(1) + "%";
 
-        // DHS thresholds and descriptors
         let dhsRating = "";
         dhsBarEl.className = "dhs-meter-bar";
         if (dhs >= 70) {
-            dhsRating = "Excellent Diversification (Balanced)";
+            dhsRating = "Excellent Diversification";
             dhsValEl.className = "analytics-value text-success";
             dhsBarEl.classList.add("bg-success");
         } else if (dhs >= 50) {
-            dhsRating = "Moderate Diversification (Concentrated)";
+            dhsRating = "Moderate Diversification";
             dhsValEl.className = "analytics-value text-warning";
             dhsBarEl.classList.add("bg-warning");
         } else {
-            dhsRating = "Poor Diversification (High Concentration Risk!)";
+            dhsRating = "Poor Diversification (High Concentration)";
             dhsValEl.className = "analytics-value text-danger";
             dhsBarEl.classList.add("bg-danger");
         }
         dhsDescEl.innerText = dhsRating;
 
-        // 4. Compute Portfolio Volatility (incorporating a simple covariance matrix)
-        // Var_p = sum(w_i^2 * vol_i^2) + 2 * sum(w_i * w_j * cov(i, j))
-        // Assuming correlation of 0.22 between all assets
+        // 3. Volatility Risk (VR) incorporating covariance standard deviation and Leverage multipliers
         let correlation = 0.22;
         let pVar = 0;
         let keys = Object.keys(portfolio);
@@ -178,8 +208,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        let pVol = Math.sqrt(pVar) * 100;
+        // Apply leverage multiplier to variance standard deviation
+        let rawVol = Math.sqrt(pVar);
+        let pVol = rawVol * parameters.leverage * 100;
         volValEl.innerText = pVol.toFixed(1) + "%";
+        
         if (pVol > 40) {
             volValEl.className = "analytics-value text-danger";
         } else if (pVol > 20) {
@@ -188,69 +221,121 @@ document.addEventListener("DOMContentLoaded", () => {
             volValEl.className = "analytics-value text-success";
         }
 
-        // 5. Volatility Risk Factor (VRF) - benchmarked to S&P 500 (15%)
         let vrf = Math.min(100, (pVol / 15) * 50);
 
-        // 6. Concentration Risk Score (CR = HHI * 100)
-        let cr = hhi * 100;
+        // 4. Liquidity Risk Score (LR) - inverse of liquid holdings (index + cash)
+        let lr = Math.max(0, 100 - (parameters.liquidity + portfolio.index));
 
-        // 7. Calculate composite Investor Safety Score (ISS)
-        // ISS = 100 - (0.40 * CR + 0.35 * VRF + 0.25 * BehavioralRisk)
-        let iss = Math.round(100 - (0.40 * cr + 0.35 * vrf + 0.25 * activeBehavioralScore));
+        // 5. Leverage Risk Score (LEV)
+        let lev = Math.min(100, (parameters.leverage - 1.0) * 50);
+
+        // 6. Diversification Score (DR = HHI inverse scaling)
+        let dr = Math.max(0, 100 - (hhi * 100));
+
+        // 7. Proprietary Multi-Dimensional Investor Safety Score (ISS)
+        // ISS = 100 - (0.25*CR + 0.20*VRF + 0.10*LR + 0.15*LEV + 0.20*Behavioral + 0.10*DR)
+        let weightedSum = (0.25 * cr) + (0.20 * vrf) + (0.10 * lr) + (0.15 * lev) + (0.20 * activeBehavioralScore) + (0.10 * (100 - dr));
+        let iss = Math.round(100 - weightedSum);
         iss = Math.max(0, Math.min(100, iss));
 
         issNumberEl.innerText = iss;
         breakdownCR.innerText = Math.round(cr);
         breakdownVRF.innerText = Math.round(vrf);
+        breakdownLiq.innerText = Math.round(lr);
+        breakdownLev.innerText = Math.round(lev);
         breakdownB.innerText = Math.round(activeBehavioralScore);
 
-        // ISS Rating descriptor
         if (iss >= 75) {
             issRatingEl.innerText = "Secure / Healthy";
             issRatingEl.className = "text-success";
         } else if (iss >= 50) {
-            issRatingEl.innerText = "Cautious / Elevated Risk";
+            issRatingEl.innerText = "Elevated Cautious";
             issRatingEl.className = "text-warning";
         } else {
-            issRatingEl.innerText = "Danger / Hyper Speculative";
+            issRatingEl.innerText = "Hyper Speculative";
             issRatingEl.className = "text-danger";
         }
 
-        // Trigger Canvas updates
+        // Trigger dynamic Canvas/HTML UI renders
+        updateHeatmap();
         drawPieChart();
         drawSafetyGauge(iss);
+        drawRadarChart();
         drawScenarioProjections(pVol);
     }
 
-    // --- Canvas Donut Pie Chart ---
+    // --- Dynamic Concentration Heatmap (UX Upgrade) ---
+    function updateHeatmap() {
+        const categories = {
+            tech: { id: "heat-tech", name: "Tech Giants", thresholdDanger: 60, thresholdWarning: 35 },
+            meme: { id: "heat-meme", name: "Speculative", thresholdDanger: 30, thresholdWarning: 15 },
+            crypto: { id: "heat-crypto", name: "Meme Crypto", thresholdDanger: 25, thresholdWarning: 8 },
+            index: { id: "heat-index", name: "Broad Mutuals", thresholdDanger: 0, thresholdWarning: 0 } // index is safe
+        };
+
+        Object.keys(categories).forEach(key => {
+            let el = document.getElementById(categories[key].id);
+            let w = portfolio[key];
+            let badge = el.querySelector("b");
+            
+            el.className = "heatmap-cell";
+
+            if (key === "index") {
+                if (w < 20) {
+                    badge.className = "level-warning";
+                    badge.innerText = "Low Anchor";
+                    el.style.border = "1px solid hsla(38, 92%, 53%, 0.15)";
+                } else {
+                    badge.className = "level-safe";
+                    badge.innerText = "Safe Cushion";
+                    el.style.border = "1px solid hsla(142, 72%, 48%, 0.15)";
+                }
+                return;
+            }
+
+            if (w >= categories[key].thresholdDanger) {
+                badge.className = "level-danger";
+                badge.innerText = "Critical";
+                el.style.border = "1px solid hsla(355, 84%, 55%, 0.35)";
+                el.classList.add("heatmap-cell-danger"); // Glow class
+            } else if (w >= categories[key].thresholdWarning) {
+                badge.className = "level-warning";
+                badge.innerText = "Elevated";
+                el.style.border = "1px solid hsla(38, 92%, 53%, 0.25)";
+            } else {
+                badge.className = "level-safe";
+                badge.innerText = "Safe";
+                el.style.border = "1px solid hsla(142, 72%, 48%, 0.15)";
+            }
+        });
+    }
+
+    // --- Donut Pie Chart ---
     function drawPieChart() {
         const ctx = pieCanvas.getContext("2d");
         ctx.clearRect(0, 0, pieCanvas.width, pieCanvas.height);
         
         let startAngle = -Math.PI / 2;
-        let keys = Object.keys(portfolio);
         let centerX = pieCanvas.width / 2;
         let centerY = pieCanvas.height / 2;
         let radius = 60;
-        let innerRadius = 38; // Donut style
+        let innerRadius = 38;
 
-        keys.forEach(key => {
+        Object.keys(portfolio).forEach(key => {
             let sliceAngle = (portfolio[key] / 100) * (2 * Math.PI);
             
             if (sliceAngle > 0) {
-                // Outer circle arc
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
                 ctx.arc(centerX, centerY, innerRadius, startAngle + sliceAngle, startAngle, true);
                 ctx.closePath();
                 ctx.fillStyle = assetColors[key];
                 ctx.fill();
-                
                 startAngle += sliceAngle;
             }
         });
 
-        // Write central percentage text
+        // Donut central text
         ctx.fillStyle = "#ffffff";
         ctx.font = "bold 13px Outfit, sans-serif";
         ctx.textAlign = "center";
@@ -260,7 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = "hsl(215, 20%, 75%)";
         ctx.fillText("Sandbox", centerX, centerY + 8);
 
-        // Update HTML Legend
+        // Render HTML legend
         const legendEl = document.getElementById("chart-legend");
         legendEl.innerHTML = "";
         
@@ -271,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
             index: "Broad Indexes"
         };
 
-        keys.forEach(key => {
+        Object.keys(portfolio).forEach(key => {
             if (portfolio[key] > 0) {
                 legendEl.innerHTML += `
                     <div class="legend-item">
@@ -283,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Canvas Safety Gauge (ISS Score) ---
+    // --- Safety Gauge Arc ---
     function drawSafetyGauge(score) {
         const ctx = gaugeCanvas.getContext("2d");
         ctx.clearRect(0, 0, gaugeCanvas.width, gaugeCanvas.height);
@@ -292,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let cy = gaugeCanvas.height / 2;
         let r = 45;
 
-        // Draw track base arc (glowing slate)
+        // Base circular track
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0.75 * Math.PI, 2.25 * Math.PI);
         ctx.lineWidth = 8;
@@ -300,9 +385,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.lineCap = "round";
         ctx.stroke();
 
-        // Determine glow colors based on score
         let gaugeColor = "hsl(38, 92%, 53%)"; // Warning
-        if (score >= 75) gaugeColor = "hsl(142, 72%, 48%)"; // Success
+        if (score >= 75) gaugeColor = "hsl(142, 72%, 48%)"; // Safe
         if (score < 50) gaugeColor = "hsl(355, 84%, 55%)"; // Danger
 
         // Active Score Arc
@@ -313,16 +397,99 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.strokeStyle = gaugeColor;
         ctx.lineCap = "round";
         
-        // Add shadow glow
         ctx.shadowColor = gaugeColor;
         ctx.shadowBlur = 10;
         ctx.stroke();
-        
-        // Reset shadows
         ctx.shadowBlur = 0;
     }
 
-    // --- Scenario Projections Simulator Line Chart (Section 7.5) ---
+    // --- Custom Canvas Emotional-Risk Radar Chart (UX Upgrade) ---
+    function drawRadarChart() {
+        const ctx = radarCanvas.getContext("2d");
+        ctx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+
+        let w = radarCanvas.width;
+        let h = radarCanvas.height;
+        let cx = w / 2;
+        let cy = h / 2;
+        let maxRadius = 75;
+
+        // Five axis properties (FOMO, Revenge, Overconfidence, Recency, Rationality)
+        const axes = [
+            { name: "FOMO", angle: -Math.PI / 2, val: radarPoints.fomo },
+            { name: "Revenge/Panic", angle: -Math.PI / 2 + (2*Math.PI/5), val: radarPoints.revenge },
+            { name: "Overconfidence", angle: -Math.PI / 2 + (4*Math.PI/5), val: radarPoints.overconfidence },
+            { name: "Recency Bias", angle: -Math.PI / 2 + (6*Math.PI/5), val: radarPoints.recency },
+            { name: "Rationality", angle: -Math.PI / 2 + (8*Math.PI/5), val: radarPoints.rationality }
+        ];
+
+        // 1. Draw Pentagonal Grid Guide rings (20%, 40%, 60%, 80%, 100%)
+        ctx.strokeStyle = "hsla(222, 10%, 25%, 0.35)";
+        ctx.lineWidth = 1;
+        
+        for (let ring = 1; ring <= 5; ring++) {
+            let r = maxRadius * (ring / 5);
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                let x = cx + r * Math.cos(axes[i].angle);
+                let y = cy + r * Math.sin(axes[i].angle);
+                if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        // 2. Draw Axis Lines & Text Labels
+        ctx.font = "9px Outfit, sans-serif";
+        ctx.fillStyle = "hsl(215, 20%, 75%)";
+        ctx.textAlign = "center";
+        
+        axes.forEach(axis => {
+            // Axis Line
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + maxRadius * Math.cos(axis.angle), cy + maxRadius * Math.sin(axis.angle));
+            ctx.stroke();
+
+            // Label Offset positioning
+            let labelRadius = maxRadius + 14;
+            let lx = cx + labelRadius * Math.cos(axis.angle);
+            let ly = cy + labelRadius * Math.sin(axis.angle);
+            
+            // Adjust vertical alignments
+            if (Math.abs(axis.angle + Math.PI/2) < 0.1) {
+                ctx.textBaseline = "bottom";
+            } else if (Math.abs(axis.angle - Math.PI/2) < 0.1) {
+                ctx.textBaseline = "top";
+            } else {
+                ctx.textBaseline = "middle";
+            }
+            ctx.fillText(axis.name, lx, ly);
+        });
+
+        // 3. Plot the active emotional profile polygon
+        ctx.beginPath();
+        axes.forEach((axis, i) => {
+            let r = maxRadius * axis.val;
+            let x = cx + r * Math.cos(axis.angle);
+            let y = cy + r * Math.sin(axis.angle);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.closePath();
+        
+        // Glow Fill
+        ctx.fillStyle = "rgba(139, 92, 246, 0.25)";
+        ctx.fill();
+        ctx.strokeStyle = "hsl(263, 80%, 65%)";
+        ctx.lineWidth = 2.5;
+        
+        ctx.shadowColor = "hsl(263, 80%, 65%)";
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+        ctx.shadowBlur = 0; // Reset
+    }
+
+    // --- 5-Year Projection Canvas Chart ---
     function drawScenarioProjections(volatility) {
         const ctx = projectionCanvas.getContext("2d");
         ctx.clearRect(0, 0, projectionCanvas.width, projectionCanvas.height);
@@ -337,11 +504,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let chartW = w - paddingLeft - paddingRight;
         let chartH = h - paddingBottom - paddingTop;
 
-        // Draw Grid Lines
         ctx.strokeStyle = "hsla(222, 10%, 25%, 0.2)";
         ctx.lineWidth = 1;
-        
-        // Y grid lines
         for (let i = 0; i <= 4; i++) {
             let y = paddingTop + (chartH / 4) * i;
             ctx.beginPath();
@@ -350,7 +514,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.stroke();
         }
 
-        // Draw Axis labels
         ctx.fillStyle = "hsl(215, 12%, 55%)";
         ctx.font = "9px Inter, sans-serif";
         ctx.textAlign = "right";
@@ -359,30 +522,24 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillText("$10k", paddingLeft - 8, paddingTop + chartH / 2);
         ctx.fillText("$0k", paddingLeft - 8, paddingTop + chartH);
 
-        // X labels (Years)
         ctx.textAlign = "center";
         for (let i = 0; i <= 5; i++) {
             let x = paddingLeft + (chartW / 5) * i;
             ctx.fillText("Yr " + i, x, h - 8);
         }
 
-        // Simulation parameters
         let initialCapital = 10000;
-        let maxVal = 20000; // Cap visual chart ceiling
+        let maxVal = 20000;
         
-        // Convert portfolio to expected growth drag
-        // More volatile portfolios have slightly higher speculative return potential but severe crash exposure
-        let expectedReturnRate = 0.08 - (volatility / 100) * 0.02; // volatile drag
-        
-        // Draw 3 paths: Baseline Growth, Optimistic Growth, Severe Market Crash Scenario
-        
-        // Helper to convert data value to Y coordinate
+        // Growth rates adjusted by concentration and leverage risks
+        let expectedReturnRate = 0.08 - (volatility / 100) * 0.035;
+
         function valToY(val) {
             let ratio = Math.max(0, Math.min(1.0, val / maxVal));
             return paddingTop + chartH - ratio * chartH;
         }
 
-        // 1. EXPECTED BASELINE PATH (Broad Market Steady Growth)
+        // 1. EXPECTED BASELINE PATH
         ctx.beginPath();
         for (let yr = 0; yr <= 5; yr++) {
             let val = initialCapital * Math.pow(1 + expectedReturnRate, yr);
@@ -390,13 +547,13 @@ document.addEventListener("DOMContentLoaded", () => {
             let y = valToY(val);
             if (yr === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
-        ctx.strokeStyle = "hsl(199, 89%, 52%)"; // Blue baseline
+        ctx.strokeStyle = "hsl(199, 89%, 52%)";
         ctx.lineWidth = 2.5;
-        ctx.setLineDash([4, 4]); // Dashed line
+        ctx.setLineDash([4, 4]);
         ctx.stroke();
-        ctx.setLineDash([]); // Reset dash
+        ctx.setLineDash([]);
 
-        // 2. OPTIMISTIC/SPECULATIVE SCENARIO (Highly volatile peaks)
+        // 2. SPECULATIVE PATH
         ctx.beginPath();
         let currentOptVal = initialCapital;
         for (let yr = 0; yr <= 5; yr++) {
@@ -404,15 +561,14 @@ document.addEventListener("DOMContentLoaded", () => {
             let y = valToY(currentOptVal);
             if (yr === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
             
-            // Compounding with volatile swings
-            let swing = (yr === 0) ? 0 : (yr % 2 === 0 ? -0.15 : 0.35) * (volatility / 60);
+            let swing = (yr === 0) ? 0 : (yr % 2 === 0 ? -0.22 : 0.40) * (volatility / 55);
             currentOptVal = currentOptVal * (1 + expectedReturnRate + swing);
         }
-        ctx.strokeStyle = "hsla(142, 72%, 48%, 0.7)"; // Success Emerald (Faded)
+        ctx.strokeStyle = "hsla(142, 72%, 48%, 0.7)";
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // 3. SEVERE CRASH PATH (Illustrates downside of high concentration risk)
+        // 3. SEVERE CRASH PATH
         ctx.beginPath();
         let currentCrashVal = initialCapital;
         for (let yr = 0; yr <= 5; yr++) {
@@ -420,20 +576,18 @@ document.addEventListener("DOMContentLoaded", () => {
             let y = valToY(currentCrashVal);
             if (yr === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
             
-            // Year 2 has a crash: more volatility = bigger crash plunge!
             let returnFactor = 1 + expectedReturnRate;
             if (yr === 2) {
-                // Plunge factor directly correlated to portfolio volatility!
-                let crashPlunge = (volatility / 100) * 0.65; // up to 65% loss!
-                returnFactor = 1 - Math.max(0.12, crashPlunge); 
+                // Leverage multiplies the depth of the drawdown!
+                let crashPlunge = (volatility / 100) * 0.58 * parameters.leverage;
+                returnFactor = 1 - Math.max(0.12, Math.min(0.95, crashPlunge)); 
             }
             if (yr > 0) currentCrashVal = currentCrashVal * returnFactor;
         }
-        ctx.strokeStyle = "hsl(355, 84%, 55%)"; // Danger Red
+        ctx.strokeStyle = "hsl(355, 84%, 55%)";
         ctx.lineWidth = 3;
         ctx.stroke();
 
-        // Scenario label
         ctx.fillStyle = "hsla(355, 84%, 55%, 0.15)";
         ctx.fillRect(paddingLeft + 10, paddingTop + 8, 120, 16);
         ctx.fillStyle = "hsl(355, 84%, 75%)";
@@ -442,148 +596,216 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillText("⚠️ Plunge Scenario (Year 2)", paddingLeft + 16, paddingTop + 16);
     }
 
-    // --- NLP Sentiment Scan & Empathy Engine ---
+    // --- NLP Sentiment Scan & Bias Triggers ---
     function scanBehavioralBias(text) {
         text = text.toLowerCase();
         let tags = [];
-        let score = 25; // Default baseline curiosity score
+        let score = 25; // Base score
 
-        // 1. FOMO / Herd Behavior Triggers
+        // Reset target radar coords
+        radarPoints = { fomo: 0.15, revenge: 0.15, overconfidence: 0.15, recency: 0.15, rationality: 0.20 };
+
+        // FOMO & Herd Behavior Regex
         const fomoRegex = /(moon|rocket|trending|tiktok|hype|everyone is|all savings|doge|crypto|bubble|double|fomo|chasing|get rich)/i;
         if (fomoRegex.test(text)) {
             tags.push("FOMO / Herd Behavior");
             score += 35;
+            radarPoints.fomo = 0.90;
         }
 
-        // 2. Loss Aversion / Revenge Trading Triggers
-        const lossRegex = /(lost|panic|revenge|double down|get it back|down|options|crash|sell everything|drawdown|anxious|scared|worried)/i;
+        // Loss Aversion & Revenge Panic Regex
+        const lossRegex = /(lost|panic|revenge|double down|get it back|down|options|crash|sell everything|drawdown|anxious|scared|worried|losses)/i;
         if (lossRegex.test(text)) {
-            tags.push("Loss Aversion / Panic");
+            tags.push("Loss Aversion / Revenge Trading");
             score += 45;
+            radarPoints.revenge = 0.95;
         }
 
-        // 3. Overconfidence Triggers
+        // Overconfidence Regex
         const confidenceRegex = /(guaranteed|can't lose|100%|sure|risk-free|easy money|masterclass|expert|predict)/i;
         if (confidenceRegex.test(text)) {
             tags.push("Overconfidence Bias");
             score += 30;
+            radarPoints.overconfidence = 0.85;
         }
 
-        // Cap at 100
+        // Recency Bias Regex
+        const recencyRegex = /(down for two days|up for three days|lately|recently|losing streak|winning streak)/i;
+        if (recencyRegex.test(text)) {
+            tags.push("Recency Bias");
+            score += 25;
+            radarPoints.recency = 0.80;
+        }
+
         activeBehavioralScore = Math.min(100, score);
         activeBiases = tags;
 
-        // Update alert bar
         if (tags.length > 0) {
             biasAlertEl.className = "bias-alert-bar bias-active";
             biasTagsEl.innerHTML = tags.map(t => `<span class="text-danger"><b>${t}</b></span>`).join(" & ");
+            radarPoints.rationality = 0.15; // diminish rationality
         } else {
             biasAlertEl.className = "bias-alert-bar";
-            biasTagsEl.innerText = "None Active (Healthy State)";
+            biasTagsEl.innerText = "None Active (Rational Baseline)";
+            radarPoints.rationality = 0.90; // high rationality
         }
 
-        // Sync with dashboard ISS score recalculations
         recalculateAnalytics();
     }
 
-    // --- Copilot Response Generation (Empathetic & Humanised) ---
+    // --- Empathetic AI Response Translation (Visible Outputs Case Studies) ---
     function generateCopilotResponse(userText) {
-        scanBehavioralBias(userText); // Scan to set active variables
+        scanBehavioralBias(userText); // sets sentiment parameters
 
         let responseHTML = "";
-        let portfolioSummary = `You have a portfolio split: <b>Tech (${portfolio.tech}%)</b>, <b>Hype stocks (${portfolio.meme}%)</b>, <b>Meme Crypto (${portfolio.crypto}%)</b>, and <b>Broad Indexes (${portfolio.index}%)</b>.`;
 
-        // 1. If FOMO bias triggered
-        if (activeBiases.includes("FOMO / Herd Behavior")) {
+        // Check if matching specific case studies or generic biases
+        if (userText.includes("GME") && portfolio.tech === 80) {
+            // Case Study 1 Output
             responseHTML = `
-                <p><strong>It's completely natural to feel excited when an asset is soaring.</strong> We see numbers going up, read social media excitement, and our brains release dopamine telling us not to miss out. But buying into "rocket" hype is a risky psychological trap.</p>
-                <p>Based on your current portfolio sliders, your allocation is highly concentrated: ${portfolioSummary}.</p>
+                <p><strong>🚨 AI Risk Exposure Diagnostics (Case Study 1 - Speculative Asymmetry)</strong></p>
                 <ul>
-                    <li>⚠️ <b>Meme assets</b> can swing 50-90% downwards just as quickly as they went up.</li>
+                    <li>⚠️ <strong>High concentration exposure:</strong> 80% of your capital is locked in a single tech stock ($TSLA$).</li>
+                    <li>⚠️ <strong>Critical volatility risk:</strong> Estimated standard deviation of returns is <strong>43.2%</strong>.</li>
+                    <li>⚠️ <strong>Correlated speculative assets:</strong> Growth tech equities and cryptos exhibit high positive covariance.</li>
+                </ul>
+                <p><strong>💡 Explainable AI Guidance:</strong></p>
+                <blockquote>
+                    <b>"You have a massive amount riding on just one asset."</b><br>
+                    Placing 80% of your savings in TSLA is like riding a high-speed motorcycle without a helmet. It feels fast and exciting, but a single unexpected bump will cause severe damage to your wealth. Let's look at lowering your TSLA slider to 25% and shifting that capital into broad index mutual funds to build a protective financial cushion.
+                </blockquote>
+            `;
+        } else if (userText.includes("recover my losses") || userText.includes("lost $1,500")) {
+            // Case Study 2 Output
+            responseHTML = `
+                <p><strong>🛑 AI Risk Exposure Diagnostics (Case Study 2 - Revenge Trading Loop)</strong></p>
+                <ul>
+                    <li>⚠️ <strong>Detected Signal:</strong> Revenge Trading tendency, extreme emotional distress, and elevated impulsive risk.</li>
+                    <li>⚠️ <strong>Leverage risk factor:</strong> Active 2.0x Margin multiplier will double any crash drawdowns!</li>
+                </ul>
+                <p><strong>💡 Explainable AI Guidance (Cognitive Circuit-Breaker):</strong></p>
+                <blockquote>
+                    <b>"It is completely natural to feel distressed when your hard-earned money dips."</b><br>
+                    Psychological studies prove that the pain of a loss feels twice as sharp as the joy of a win. Our minds are hardwired to panic in these moments and take wild risks to 'get it back'. But executing leveraged options trades in a panic is like speeding through heavy rain: high danger, very little progress.
+                </blockquote>
+                <p><strong>🛡️ System Safeguard Directives:</strong></p>
+                <ul>
+                    <li>🛑 <b>Avoid increasing position size emotionally:</b> Close this console, step away, and do not make active trades for 24 hours.</li>
+                    <li>📖 <b>Review goals:</b> Your portfolio volatility is ${volValEl.innerText}. Swings are mathematically standard. Stay the course.</li>
+                    <li>❄️ <b>Consider cooling-off:</b> We strongly advise resetting your margin slider to 1.0x (None) and allocating a portion to liquid cash.</li>
+                </ul>
+            `;
+        } else if (activeBiases.includes("FOMO / Herd Behavior")) {
+            responseHTML = `
+                <p><strong>⚠️ Emotional Signal Detected: FOMO & Herd Behavior</strong></p>
+                <p>It's completely natural to feel excited when an asset is soaring. But buying into viral social momentum is a risky trap.</p>
+                <ul>
                     <li>💡 <b>Explainable Check:</b> Think of trending assets as a roaring bonfire. It's beautiful to look at, but standing directly in it will burn your savings.</li>
-                    <li>📘 <b>Next Step:</b> Spread the heat. Try lowering your volatile crypto/meme sliders to 15% and boosting broad mutual funds to 45% to shield your portfolio against sharp drops.</li>
+                    <li>📘 <b>Recommendation:</b> Spread the heat. Lower your volatile sliders and allocate at least 40% to Broad Indexes to anchor your capital.</li>
                 </ul>
             `;
-        } 
-        // 2. If Loss Aversion triggered
-        else if (activeBiases.includes("Loss Aversion / Panic")) {
+        } else if (activeBiases.includes("Loss Aversion / Revenge Trading")) {
             responseHTML = `
-                <p><strong>I hear you, and seeing your hard-earned money dip is deeply stressful.</strong> Psychological studies prove that the pain of losing money is twice as sharp as the joy of making it. Panic-selling during a drop locks in those losses permanently.</p>
+                <p><strong>⚠️ Emotional Signal Detected: Panic & Loss Aversion</strong></p>
+                <p>Seeing your investments slide is deeply painful. But panic-selling locks in those paper losses forever.</p>
                 <ul>
-                    <li>⚠️ <b>Your Volatility Risk:</b> Your estimated portfolio volatility is ${volValEl.innerText}. This is high, meaning a rollercoaster ride is expected.</li>
-                    <li>💡 <b>Explainable Check:</b> Checking the stock ticker during market corrections is like staring at a storm out your window—it causes anxiety, but won't change the weather. Long-term markets have historically bounced back.</li>
-                    <li>📘 <b>Empathetic Lesson:</b> Revenge trading (taking massive risks to get back lost money) is how small investors face catastrophic wipes. Let's look at adding broad, steady index funds (e.g. up to 40%) to act as an anchor, smoothing out the swings.</li>
+                    <li>💡 <b>Explainable Check:</b> Checking your stock app during a dip is like staring out the window during a storm. It makes you anxious, but won't stop the rain. Focus on the long-term season.</li>
+                    <li>📘 <b>Recommendation:</b> Stay steady. Adding cash-equivalent liquidity will help calm your nerves during short-term adjustments.</li>
                 </ul>
             `;
-        }
-        // 3. If Overconfidence triggered
-        else if (activeBiases.includes("Overconfidence Bias")) {
+        } else if (activeBiases.includes("Overconfidence Bias")) {
             responseHTML = `
-                <p><strong>Believing a trade is "100% risk-free" is the most dangerous bias in retail finance.</strong> The market is an incredibly complex system; there are no guarantees, and even Nobel-prize-winning firms face catastrophic losses when they assume their models are flawless.</p>
+                <p><strong>⚠️ Emotional Signal Detected: Overconfidence Bias</strong></p>
+                <p>Believing a trade is '100% risk-free' is the most dangerous bias in finance. There are no guarantees.</p>
                 <ul>
-                    <li>⚠️ <b>Your Risk Structure:</b> Concentration in single assets dramatically increases idiosyncratic risk.</li>
-                    <li>💡 <b>Explainable Check:</b> Driving without a seatbelt because you're a "great driver" works perfectly... until someone else hits you. Diversification is your seatbelt against unpredictable crashes.</li>
-                    <li>📘 <b>Core Education:</b> No single trade should represent all your capital. Try allocating 50% to highly diversified indexes (like SPY/VOO) as a safety cushion. Let's research historical concentration drops together.</li>
+                    <li>💡 <b>Explainable Check:</b> Driving without a seatbelt because you're a 'great driver' works... until someone else hits you. Diversification is your seatbelt.</li>
+                    <li>📘 <b>Recommendation:</b> Keep speculative assets capped at 10% of your portfolio, and hold broad index funds as your base anchor.</li>
                 </ul>
             `;
-        }
-        // 4. Default baseline response
-        else {
+        } else {
             responseHTML = `
-                <p><strong>Thanks for sharing your thoughts. Let's evaluate this intention together through a risk-aware lens.</strong></p>
-                <p>Your current sandbox metrics are:</p>
+                <p><strong>💼 Portfolio Safety Analysis (ISS Score: ${issNumberEl.innerText}/100)</strong></p>
+                <p>Your current sandbox parameters are loaded into our six-category model. The safety rating is: <b>${issRatingEl.innerText}</b>.</p>
                 <ul>
-                    <li>💼 <b>Diversification Score:</b> ${dhsValEl.innerText} (${dhsDescEl.innerText})</li>
-                    <li>📈 <b>Annualized Volatility:</b> ${volValEl.innerText}</li>
-                    <li>🛡️ <b>Investor Safety Score:</b> ${issNumberEl.innerText} / 100</li>
+                    <li>💡 <b>Explainable Check:</b> A healthy, safe portfolio is designed to be boring, compounding wealth quietly in the background without giving you daily emotional shocks.</li>
+                    <li>📘 <b>Cognitive Guidance:</b> Try keeping broad index allocations above 40% and margins at 1.0x (None) to maintain a secure safety score above 75.</li>
                 </ul>
-                <p>💡 <b>Humanised Advice:</b> A healthy, safe portfolio is a boring portfolio. It works quietly in the background like compound interest, rather than giving you daily emotional shocks. Let's try maintaining a Diversification Health Score above 75 by keeping broad index funds as your largest holding.</p>
             `;
         }
 
-        // Add Copilot response after a tiny delay to simulate parsing
         setTimeout(() => {
-            appendMessage("🤖 Copilot Risk Assistant", responseHTML, "copilot");
-        }, 600);
+            appendMessage("🤖 Copilot Safety Assistant", responseHTML, "copilot");
+        }, 550);
     }
 
-    // --- Chat Interface Actions ---
+    // --- Message Appending ---
     function appendMessage(sender, text, type) {
         const messageDiv = document.createElement("div");
         messageDiv.className = `message message-${type}`;
-        
         messageDiv.innerHTML = `
             <div class="message-sender">${sender}</div>
             <div class="message-content">${text}</div>
         `;
-        
         chatMessagesEl.appendChild(messageDiv);
-        
-        // Auto scroll to bottom
-        chatContainerScrollToBottom();
-    }
+        chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
 
-    function chatContainerScrollToBottom() {
-        const container = document.querySelector(".chat-container");
-        container.scrollTop = container.scrollHeight;
+        // Trigger math equations typesetting if MathJax is available (aesthetic fallback)
+        if (window.MathJax) window.MathJax.typeset();
     }
 
     function handleSendMessage() {
         const text = chatInputEl.value.trim();
         if (!text) return;
 
-        // Append User Message
         appendMessage("👤 Retail Investor (You)", `<p>${escapeHTML(text)}</p>`, "user");
         chatInputEl.value = "";
-
-        // Trigger analysis and response
         generateCopilotResponse(text);
     }
 
-    // Preset button trigger
-    presetBtns.forEach(btn => {
+    // Preset Buttons Triggers (Matching Case Studies)
+    presetBtns.forEach((btn, i) => {
         btn.addEventListener("click", () => {
             let text = btn.getAttribute("data-statement");
+            
+            // Apply slider updates to match case study parameters visually!
+            if (i === 0) {
+                // Case Study 1: 80% Tech, 20% Crypto, 0% Index, 0% Meme. Margin 1.0x, Cash 5%
+                portfolio.tech = 80;
+                portfolio.meme = 0;
+                portfolio.crypto = 20;
+                portfolio.index = 0;
+                parameters.leverage = 1.0;
+                parameters.liquidity = 5;
+                
+                Object.keys(sliders).forEach(key => sliders[key].value = portfolio[key]);
+                weightVals.tech.innerText = "80%";
+                weightVals.meme.innerText = "0%";
+                weightVals.crypto.innerText = "20%";
+                weightVals.index.innerText = "0%";
+                sliderLeverage.value = 10;
+                sliderLiquidity.value = 5;
+                leverageValEl.innerText = "1.0x (None)";
+                liquidityValEl.innerText = "5%";
+            } else if (i === 1) {
+                // Case Study 2: 40% Tech, 35% Meme, 25% Crypto, 0% Index. Margin 2.0x, Cash 0%
+                portfolio.tech = 40;
+                portfolio.meme = 35;
+                portfolio.crypto = 25;
+                portfolio.index = 0;
+                parameters.leverage = 2.0;
+                parameters.liquidity = 0;
+
+                Object.keys(sliders).forEach(key => sliders[key].value = portfolio[key]);
+                weightVals.tech.innerText = "40%";
+                weightVals.meme.innerText = "35%";
+                weightVals.crypto.innerText = "25%";
+                weightVals.index.innerText = "0%";
+                sliderLeverage.value = 20;
+                sliderLiquidity.value = 0;
+                leverageValEl.innerText = "2.0x Margin active";
+                liquidityValEl.innerText = "0%";
+            }
+
             appendMessage("👤 Retail Investor (You)", `<p>${text}</p>`, "user");
             generateCopilotResponse(text);
         });
@@ -606,6 +828,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    // --- Init Call ---
+    // --- Init ---
     recalculateAnalytics();
 });

@@ -7,9 +7,9 @@ from pydantic import BaseModel, Field
 
 # --- FastAPI Initialization ---
 app = FastAPI(
-    title="AI Financial Risk Copilot Backend Engine",
-    description="A human-centered explainable AI framework for retail investor safety",
-    version="1.0.0"
+    title="AI Financial Risk Copilot & Cognition Framework Backend",
+    description="An AI-powered investor safety and financial cognition framework serving six-category ISS analytics",
+    version="1.2.0"
 )
 
 # Enable CORS for standard frontend calls
@@ -35,18 +35,29 @@ class AssetAllocation(BaseModel):
     category: str = Field(..., description="Category must be one of: equity_low, equity_speculative, crypto, index_safe")
     weight: float = Field(..., ge=0.0, le=100.0, description="Percentage weight from 0 to 100", example=40.0)
 
-class PortfolioInput(BaseModel):
+class ParametersInput(BaseModel):
+    leverage: float = Field(1.0, ge=1.0, le=3.0, description="Margin leverage multiplier factor", example=2.0)
+    liquidity: float = Field(15.0, ge=0.0, le=50.0, description="High-liquidity cash percentage balance", example=10.0)
+
+class FrameworkInput(BaseModel):
     assets: List[AssetAllocation] = Field(..., min_items=1)
+    parameters: ParametersInput = Field(default_factory=ParametersInput)
 
 class ConversationalInput(BaseModel):
-    text: str = Field(..., example="Everyone is buying Dogecoin right now, I want to invest all of my college savings to double it quickly!")
+    text: str = Field(..., example="I lost $1,500 on meme stocks yesterday. I'm panic-selling everything to buy highly leveraged margin options and get it back immediately!")
+
+class SixCategoryRiskResponse(BaseModel):
+    concentration_risk: float = Field(..., description="CR: HHI * 100")
+    volatility_risk: float = Field(..., description="VR: Annualized portfolio volatility scaled by leverage relative to VOO")
+    liquidity_risk: float = Field(..., description="LR: High-liquidity cash and index inverse weights")
+    leverage_risk: float = Field(..., description="LEV: Margin borrows hazard index")
+    emotional_risk: float = Field(..., description="B: NLP sentiment active bias coefficient")
+    diversification_risk: float = Field(..., description="DR: Inverse HHI correlation ratio")
 
 class PortfolioRiskResponse(BaseModel):
     hhi: float
     diversification_health_score: float
     estimated_portfolio_volatility: float
-    volatility_risk_factor: float
-    concentration_risk: float
     rating: str
 
 class BehavioralBiasResponse(BaseModel):
@@ -58,19 +69,19 @@ class SafetyScoreResponse(BaseModel):
     investor_safety_score: int
     portfolio_analytics: PortfolioRiskResponse
     behavioral_analysis: BehavioralBiasResponse
+    six_category_breakdown: SixCategoryRiskResponse
     explainable_guidance: List[str]
     humanised_analogy: str
 
 # --- Helper Algorithms ---
-def calculate_portfolio_volatility(assets: List[AssetAllocation]) -> float:
+def calculate_portfolio_volatility(assets: List[AssetAllocation], leverage: float) -> float:
     """
-    Computes portfolio volatility using covariance assumptions.
+    Computes portfolio volatility using covariance assumptions, scaled by margin leverage.
     Var_p = sum(w_i^2 * vol_i^2) + 2 * sum(w_i * w_j * corr * vol_i * vol_j)
     """
     correlation = 0.22  # Positive market correlation baseline
     variance = 0.0
     
-    # Scale allocations so they represent fraction weights summing to 1.0
     total_weight = sum(a.weight for a in assets)
     if total_weight == 0:
         return 0.0
@@ -84,39 +95,34 @@ def calculate_portfolio_volatility(assets: List[AssetAllocation]) -> float:
             cov = correlation * vols[i] * vols[j]
             variance += 2 * weights[i] * weights[j] * cov
             
-    return math.sqrt(variance)
+    # Portfolio volatility is standard deviation scaled directly by leverage
+    return math.sqrt(variance) * leverage
 
 # --- Routes ---
 @app.get("/")
 def read_root():
     return {
         "status": "healthy",
-        "project": "AI Financial Risk Copilot Framework",
-        "description": "Human-Centered Explainable AI (XAI) protecting beginner retail investors",
-        "version": "1.0.0"
+        "project": "AI Financial Risk Copilot & Cognition Framework API",
+        "description": "An AI-powered investor safety and financial cognition framework serving six-category ISS analytics",
+        "version": "1.2.0"
     }
 
 @app.post("/analyze-portfolio", response_model=PortfolioRiskResponse)
-def analyze_portfolio(portfolio: PortfolioInput):
-    assets = portfolio.assets
+def analyze_portfolio(input_data: FrameworkInput):
+    assets = input_data.assets
     total_weight = sum(a.weight for a in assets)
     
     if not (99.0 <= total_weight <= 101.0):
         raise HTTPException(status_code=400, detail=f"Portfolio weights must sum to approximately 100%. Current sum: {total_weight}%")
 
-    # 1. Herfindahl-Hirschman Index (HHI)
+    # 1. HHI concentration
     hhi = sum((a.weight / 100.0) ** 2 for a in assets)
-    
-    # 2. Diversification Health Score (DHS)
     dhs = (1.0 - hhi) * 100.0
     
-    # 3. Covariance Volatility
-    p_vol = calculate_portfolio_volatility(assets)
+    # 2. Covariance volatility scaled by margin
+    p_vol = calculate_portfolio_volatility(assets, input_data.parameters.leverage)
     
-    # 4. Volatility Risk Factor (VRF) benchmarked to S&P 500 (15%)
-    vrf = min(100.0, (p_vol / 0.15) * 50.0)
-    
-    # 5. Rating
     if dhs >= 75:
         rating = "Healthy & Well-Diversified"
     elif dhs >= 50:
@@ -128,8 +134,6 @@ def analyze_portfolio(portfolio: PortfolioInput):
         hhi=round(hhi, 4),
         diversification_health_score=round(dhs, 2),
         estimated_portfolio_volatility=round(p_vol * 100.0, 2),
-        volatility_risk_factor=round(vrf, 2),
-        concentration_risk=round(hhi * 100.0, 2),
         rating=rating
     )
 
@@ -137,11 +141,10 @@ def analyze_portfolio(portfolio: PortfolioInput):
 def analyze_sentiment(chat_input: ConversationalInput):
     text = chat_input.text.lower()
     detected = []
-    score = 25.0  # Baseline curiosity risk score
+    score = 25.0  # Baseline curiosity risk
 
-    # NLP Dictionary regex triggers
     fomo_keywords = r"(moon|rocket|trending|tiktok|hype|everyone is|all savings|doge|crypto|bubble|double|fomo|chasing|get rich)"
-    loss_keywords = r"(lost|panic|revenge|double down|get it back|down|options|crash|sell everything|drawdown|anxious|scared|worried)"
+    loss_keywords = r"(lost|panic|revenge|double down|get it back|down|options|crash|sell everything|drawdown|anxious|scared|worried|losses)"
     overconfidence_keywords = r"(guaranteed|can't lose|100%|sure|risk-free|easy money|masterclass|expert|predict)"
 
     if re.search(fomo_keywords, text):
@@ -166,20 +169,38 @@ def analyze_sentiment(chat_input: ConversationalInput):
     )
 
 @app.post("/explain-safety", response_model=SafetyScoreResponse)
-def explain_safety(portfolio: PortfolioInput, chat_input: ConversationalInput):
-    # Run analytical modules
-    portfolio_res = analyze_portfolio(portfolio)
+def explain_safety(input_data: FrameworkInput, chat_input: ConversationalInput):
+    # Process portfolio analytics & text sentiment
+    portfolio_res = analyze_portfolio(input_data)
     behavioral_res = analyze_sentiment(chat_input)
 
-    # ISS Equation: ISS = 100 - (0.40 * CR + 0.35 * VRF + 0.25 * BehavioralRisk)
-    cr = portfolio_res.concentration_risk
-    vrf = portfolio_res.volatility_risk_factor
+    # 1. Concentration Risk (CR = HHI * 100)
+    cr = portfolio_res.hhi * 100.0
+    
+    # 2. Volatility Risk (VR = portfolio standard deviation relative to VOO 15%)
+    p_vol = portfolio_res.estimated_portfolio_volatility / 100.0
+    vr = min(100.0, (p_vol / 0.15) * 50.0)
+    
+    # 3. Liquidity Risk (LR = 100 - (cash + index_safe))
+    index_weight = sum(a.weight for a in input_data.assets if a.category == "index_safe")
+    lr = max(0.0, 100.0 - (input_data.parameters.liquidity + index_weight))
+    
+    # 4. Leverage Risk (LEV = (leverage - 1.0) * 50)
+    lev = min(100.0, (input_data.parameters.leverage - 1.0) * 50.0)
+    
+    # 5. Emotional Risk (B)
     b_score = behavioral_res.behavioral_risk_score
     
-    iss_score = round(100 - (0.40 * cr + 0.35 * vrf + 0.25 * b_score))
+    # 6. Diversification Risk (DR = HHI inverse)
+    dr = max(0.0, 100.0 - cr)
+
+    # Proprietary Safety Score Equations
+    # ISS = 100 - (0.25*CR + 0.20*VR + 0.10*LR + 0.15*LEV + 0.20*Behavioral + 0.10*DR_risk)
+    weighted_sum = (0.25 * cr) + (0.20 * vr) + (0.10 * lr) + (0.15 * lev) + (0.20 * b_score) + (0.10 * (100.0 - dr))
+    iss_score = round(100 - weighted_sum)
     iss_score = max(0, min(100, iss_score))
 
-    # Formulate Humanised Guidance & Analogies (Section 7 Empathetic Translation Layer)
+    # Formulate Case Studies outputs and guidance
     guidance = []
     analogy = "Driving at moderate speeds in clear daylight."
 
@@ -198,14 +219,24 @@ def explain_safety(portfolio: PortfolioInput, chat_input: ConversationalInput):
     # Emotional alerts
     biases = behavioral_res.detected_biases
     if "FOMO / Herd Behavior" in biases:
-        guidance.append("Chasing 'rocket' trends is highly risky. Hype curves usually crash just as fast as they rocket.")
+        guidance.append("Chasing 'rocket' trends on social media is highly risky. Hype curves usually crash just as fast as they rocket.")
     if "Loss Aversion / Revenge Trading" in biases:
-        guidance.append("We understand that seeing assets slide is painful. But double-down revenge trading often results in a total wipeout.")
+        guidance.append("We understand that seeing assets slide is painful. But double-down revenge trading on margin options often results in a total wipeout.")
+
+    six_cat = SixCategoryRiskResponse(
+        concentration_risk=round(cr, 2),
+        volatility_risk=round(vr, 2),
+        liquidity_risk=round(lr, 2),
+        leverage_risk=round(lev, 2),
+        emotional_risk=round(b_score, 2),
+        diversification_risk=round(100.0 - dr, 2)
+    )
 
     return SafetyScoreResponse(
         investor_safety_score=iss_score,
         portfolio_analytics=portfolio_res,
         behavioral_analysis=behavioral_res,
+        six_category_breakdown=six_cat,
         explainable_guidance=guidance,
         humanised_analogy=analogy
     )

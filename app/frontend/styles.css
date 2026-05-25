@@ -192,12 +192,12 @@ body {
 /* Dashboard Grid */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1.1fr 1.9fr;
+    grid-template-columns: 1.15fr 1.85fr;
     gap: 20px;
     flex: 1;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
@@ -247,7 +247,7 @@ body {
 .panel-desc {
     font-size: 0.85rem;
     color: var(--text-secondary);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     line-height: 1.4;
 }
 
@@ -277,25 +277,25 @@ body {
 .asset-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 15px;
 }
 
 .asset-card {
     background: hsla(222, 10%, 10%, 0.5);
     border: 1px solid hsla(222, 10%, 30%, 0.2);
     border-radius: 12px;
-    padding: 15px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     transition: all 0.25s ease;
 }
 
 .asset-card:hover {
     border-color: hsla(263, 70%, 65%, 0.3);
     background: hsla(222, 10%, 10%, 0.7);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .asset-info {
@@ -399,6 +399,52 @@ body {
     100% { box-shadow: 0 0 12px hsla(355, 84%, 55%, 0.5); }
 }
 
+/* Leverage & Liquidity Box */
+.additional-parameters-box {
+    background: hsla(222, 10%, 12%, 0.5);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.box-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.parameter-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.param-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.param-label {
+    color: var(--text-secondary);
+}
+
+.param-val {
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.slider-param::-webkit-slider-thumb {
+    background: var(--color-primary);
+}
+
 /* Sandbox analytics */
 .sandbox-analytics {
     display: grid;
@@ -458,6 +504,49 @@ body {
 .text-warning { color: var(--color-warning); }
 .text-danger { color: var(--color-danger); }
 
+/* Concentration Heatmap */
+.heatmap-panel {
+    background: hsla(222, 10%, 6%, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.heatmap-cell {
+    background: hsla(222, 10%, 15%, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    transition: all 0.3s;
+}
+
+.heatmap-cell span {
+    color: var(--text-secondary);
+}
+
+.heatmap-cell b {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+}
+
+.level-safe { color: var(--color-success); }
+.level-warning { color: var(--color-warning); }
+.level-danger { color: var(--color-danger); }
+
 /* Chart Containers */
 .chart-container {
     background: hsla(222, 10%, 6%, 0.3);
@@ -515,7 +604,7 @@ body {
     padding: 20px;
     gap: 20px;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .gauge-container {
@@ -576,7 +665,7 @@ body {
 .safety-breakdown {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     margin-top: 5px;
 }
 
@@ -591,6 +680,27 @@ body {
 
 .breakdown-pill b {
     color: var(--text-primary);
+}
+
+/* Radar Panel */
+.radar-panel {
+    background: hsla(222, 10%, 6%, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.radar-container {
+    width: 220px;
+    height: 220px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Behavioral Alert Bar */
@@ -630,7 +740,7 @@ body {
     min-height: 280px;
     max-height: 400px;
     overflow-y: auto;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .chat-messages {
@@ -697,9 +807,17 @@ body {
     gap: 3px;
 }
 
+.message-content strong {
+    color: var(--color-warning);
+}
+
+.message-content b {
+    color: var(--text-primary);
+}
+
 /* Presets Panel */
 .presets-section {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .presets-title {
@@ -727,6 +845,7 @@ body {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-align: left;
 }
 
 .preset-btn:hover {
