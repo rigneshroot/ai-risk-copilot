@@ -12,27 +12,27 @@
 
 # Abstract
 
-Over the last decade, retail investing has become increasingly accessible due to mobile trading platforms, social media communities, and commission-free brokerage applications. While this democratization of finance has enabled greater participation in financial markets, it has also exposed inexperienced investors to significant financial and psychological risks. Teen and small investors often make decisions influenced by online trends, emotional reactions, speculative behavior, and limited financial literacy.
+Over the last decade, retail investing has become increasingly accessible due to mobile trading platforms, social media communities, and commission-free brokerage applications. While this democratization of finance has enabled greater participation in financial markets, it has also exposed inexperienced investors to significant financial and psychological risks. Teen and small retail investors often make decisions heavily influenced by digital social proof, emotional panic, cognitive biases, and limited financial literacy.
 
-This paper proposes an **AI Financial Risk Copilot**, an AI-powered investor safety and financial cognition framework designed to assist beginner investors in making safer and more informed financial decisions. Unlike conventional robo-advisors that focus primarily on maximizing returns or optimizing portfolios, the proposed system emphasizes **investor protection, emotional risk awareness, behavioral analysis, and humanised financial education**. 
+This paper proposes the **AI Financial Risk Copilot**, an AI-powered investor safety and financial cognition framework designed to assist beginner investors in making safer, more rational, and more informed financial decisions. Unlike conventional robo-advisors that focus primarily on maximizing returns or optimizing portfolio allocations, the proposed system emphasizes **investor protection, emotional risk awareness, behavioral analysis, and humanised financial education**. 
 
-The framework combines portfolio analytics, behavioral finance principles, natural language processing (NLP), and explainable AI (XAI) techniques to identify harmful investment behavior and generate understandable, personalized guidance. We establish a proprietary, multi-dimensional **Investor Safety Score ($ISS$)** evaluating six core categories: Concentration, Volatility, Liquidity, Leverage, Emotional Risk, and Diversification. The system evaluates these metrics and automatically translates them into intuitive, non-jargon-filled explanations that act as cognitive circuit-breakers.
+The framework combines quantitative portfolio analytics, behavioral finance principles (Barberis & Thaler, 2003; Kahneman & Tversky, 1979), natural language processing (NLP) (Pang & Lee, 2008), and explainable AI (XAI) techniques (Ribeiro et al., 2016; Lundberg & Lee, 2017) to identify harmful investment behaviors and generate understandable, personalized guidance. We establish a proprietary, multi-dimensional **Investor Safety Score ($ISS$)** evaluating six core categories: Concentration, Volatility, Liquidity, Leverage, Emotional Risk, and Diversification. The system evaluates these metrics and automatically translates them into intuitive, non-jargon-filled explanations that act as cognitive circuit-breakers.
 
 ---
 
 # 1. Introduction: Why This Matters
 
-Democratizing retail finance through digital platforms has fundamentally transformed how individuals interact with capital markets. While lowering barriers to entry has empowered millions, it has simultaneously created a hazardous environment for inexperienced participants. 
+Democratizing retail finance through digital platforms has fundamentally transformed how individual investors interact with capital markets (Shiller, 2003). While lowering barriers to entry has empowered millions, it has simultaneously created a hazardous environment for inexperienced participants. 
 
 ### The Cognitive Challenge of Modern Retail Investing
-Teen and small investors are highly susceptible to psychological biases, amplified by the gamification of modern trading interfaces and viral social media "hype" loops (Reddit WallStreetBets, TikTok, Discord, etc.). In these environments, trading is frequently treated as a form of social entertainment or high-frequency speculation rather than long-term wealth preservation. 
+Teen and small investors are highly susceptible to psychological biases, amplified by the gamification of modern trading interfaces and viral social media "hype" loops (Reddit WallStreetBets, TikTok, Discord, etc.). In these environments, trading is frequently treated as a form of social entertainment or high-frequency speculation rather than long-term wealth preservation (Barber & Odean, 2000, 2013). 
 
-Traditional quantitative risk indicators (such as beta, Sharpe ratio, or standard deviation) are presented in dense, non-interactive charts. Research indicates that beginner investors experience a "cognitive block" when faced with these dry parameters, leading them to ignore risk warnings entirely.
+Traditional quantitative risk indicators (such as beta, Sharpe ratio, or standard deviation) are typically presented in dense, static, and non-interactive charts. Empirical research indicates that beginner investors experience a severe "cognitive block" when faced with these dry parameters, leading them to ignore critical risk warnings entirely (Lo et al., 2005; Lo & Repin, 2002).
 
 ### Research Significance
 **This project explores how explainable AI systems can reduce harmful retail investing behavior through behavioral analysis, contextual financial education, and risk-aware portfolio intelligence.** 
 
-By framing the platform strictly as an **AI-powered investor safety and financial cognition framework** (not as a speculative trading bot or investment advisor), we explore a new paradigm of human-machine interaction in finance. The Copilot functions as a supportive cognitive companion that translates complex quantitative analytics into empathetic, humanised feedback. This active, explainable guidance acts as a behavioral circuit-breaker, shifting the user's mindset from impulsive speculation back to long-term rationality.
+By framing the platform strictly as an **AI-powered investor safety and financial cognition framework** (not as a speculative trading bot or licensed investment advisor), we explore a new paradigm of human-machine interaction in finance. The Copilot functions as a supportive cognitive companion that translates complex quantitative analytics into empathetic, humanised feedback. This active, explainable guidance acts as a behavioral circuit-breaker, shifting the user's mindset from impulsive speculation back to long-term rationality (Thaler & Sunstein, 2008).
 
 ---
 
@@ -160,6 +160,8 @@ AI BEHAVIORAL SAFETY DIAGNOSTICS: CASE 2
 > **Explainable AI Output (Cognitive Circuit-Breaker)**:
 > 🛑 **"It is completely natural to feel distressed when your hard-earned money dips."**
 > *Psychological studies prove that the pain of a loss feels twice as sharp as the joy of a win. Our brains are hardwired to panic in these moments and take wild risks to 'get it back'. But executing leveraged options trades in a panic is like speeding through heavy rain: high danger, very little progress. Let's reset your margin slider to 1.0x and review your long-term 5-year strategy together.*
+> 
+> *Note: This nudge actively addresses **Myopic Loss Aversion** (Benartzi & Thaler, 1995) by interrupting the high-frequency trading loop and reframing the evaluation window back to long-term horizons.*
 
 ---
 
@@ -168,7 +170,7 @@ AI BEHAVIORAL SAFETY DIAGNOSTICS: CASE 2
 Below is the visual dashboard layout of the **AI Financial Risk Copilot & Cognition Framework**.
 
 <p align="center">
-  <img src="../../docs/assets/dashboard_screenshot.png" alt="Safety Dashboard Visual Screenshot Mockup" width="750" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
+  <img src="docs/assets/dashboard_screenshot.png" alt="Safety Dashboard Visual Screenshot Mockup" width="750" style="border-radius: 12px; border: 1px solid #2e3b4e; margin: 20px 0;"/>
 </p>
 *(Note: To display your local browser dashboard screenshot here, open app/frontend/index.html in Google Chrome, take a screenshot of your screen, and save the image file as `docs/assets/dashboard_screenshot.png`!)*
 
@@ -204,3 +206,39 @@ The comparative trial structure isolates the causal impact of explainable AI on 
 The upgraded **AI Financial Risk Copilot** establishes a rigorous, human-centered computational finance framework. By shifting the paradigm from automated speculation to **cognitive safety-first rebalancing**, the system acts as a protective shield for the most vulnerable retail market participants. 
 
 Through standardizing HHI concentration indexes, annualized covariances, margin factors, and regex NLP classifiers into our proprietary six-category **Investor Safety Score ($ISS$)**, we build a rigorous quantitative baseline. Most importantly, by translating these metrics into relatable real-world analogies and dynamic canvas-based dashboard components (Heatmaps and Radar Profiles), we break the cognitive block of quantitative finance, fostering safe, long-term, and educated retail participation in modern capital markets.
+
+---
+
+# 10. References
+
+### 10.1 Prospect Theory and Loss Aversion
+*   **Kahneman, D., & Tversky, A. (1979).** Prospect Theory: An Analysis of Decision under Risk. *Econometrica*, 47(2), 263-291.
+*   **Tversky, A., & Kahneman, D. (1991).** Loss Aversion in Riskless Choice: A Reference-Dependent Model. *The Quarterly Journal of Economics*, 106(4), 1039-1061.
+*   **Tversky, A., & Kahneman, D. (1992).** Advances in Prospect Theory: Cumulative Representation of Uncertainty. *Journal of Risk and Uncertainty*, 5(4), 297-323.
+*   **Benartzi, S., & Thaler, R. H. (1995).** Myopic Loss Aversion and the Equity Premium Puzzle. *The Quarterly Journal of Economics*, 110(1), 73-92.
+
+### 10.2 Behavioral Finance
+*   **Shiller, R. J. (2003).** From Efficient Markets Theory to Behavioral Finance. *Journal of Economic Perspectives*, 17(1), 83-104.
+*   **Barberis, N., & Thaler, R. (2003).** A Survey of Behavioral Finance. *Handbook of the Economics of Finance*, 1, 1053-1123.
+*   **Thaler, R. H. (2015).** *Misbehaving: The Making of Behavioral Economics*. W. W. Norton & Company.
+*   **Shefrin, H., & Statman, M. (1985).** The Disposition to Sell Winners Too Early and Ride Losers Too Long: Theory and Evidence. *The Journal of Finance*, 40(3), 777-790.
+
+### 10.3 Retail Investor Psychology
+*   **Barber, B. M., & Odean, T. (2000).** Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors. *The Journal of Finance*, 55(2), 773-806.
+*   **Barber, B. M., & Odean, T. (2001).** Boys will be Boys: Gender, Overconfidence, and Common Stock Investment. *The Quarterly Journal of Economics*, 116(1), 261-292.
+*   **Barber, B. M., & Odean, T. (2013).** The Behavior of Individual Investors. *Handbook of the Economics of Finance*, 2, 1533-1611.
+*   **Lo, A. W., Repin, D. V., & Steenbarger, B. N. (2005).** Out of the Box: The Cognitive Neurosciences of Financial Decision Making. *Journal of Cognitive Neuroscience*, 17(8), 1300-1308.
+*   **Daniel, K., Hirshleifer, D., & Subrahmanyam, A. (1998).** Investor Psychology and Security Market Under- and Overreactions. *The Journal of Finance*, 53(6), 1839-1885.
+
+### 10.4 Explainable AI (XAI)
+*   **Ribeiro, M. T., Singh, S., & Guestrin, C. (2016).** "Why Should I Trust You?": Explaining the Predictions of Any Classifier. *Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 1135-1144.
+*   **Lundberg, S. M., & Lee, S.-I. (2017).** A Unified Approach to Interpreting Model Predictions. *Advances in Neural Information Processing Systems*, 30, 4765-4774.
+*   **Miller, T. (2019).** Explanation in Artificial Intelligence: Insights from the Social Sciences. *Artificial Intelligence*, 267, 1-38.
+*   **Arrieta, A. B., Díaz-Rodríguez, N., Del Ser, J., Bennetot, A., Tabik, S., Albert, A., ... & Herrera, F. (2020).** Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI. *Information Fusion*, 58, 82-115.
+*   **Bracke, P., Datta, A., Jung, C., & Sen, S. (2019).** Machine Learning Explainability in Finance: An Application to Default Risk. *Bank of England Staff Working Paper*, No. 786.
+
+### 10.5 Choice Architecture and Portfolio Theory
+*   **Thaler, R. H., & Sunstein, C. R. (2008).** *Nudge: Improving Decisions About Health, Wealth, and Happiness*. Yale University Press.
+*   **Markowitz, H. (1952).** Portfolio Selection. *The Journal of Finance*, 7(1), 77-91.
+*   **Sharpe, W. F. (1966).** Mutual Fund Performance. *The Journal of Business*, 39(1), 119-138.
+*   **Pang, B., & Lee, L. (2008).** Opinion Mining and Sentiment Analysis. *Foundations and Trends in Information Retrieval*, 2(1–2), 1-135.

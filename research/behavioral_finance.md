@@ -87,10 +87,17 @@ By integrating these behavioral finance principles directly into the design of e
 
 ## 4. References & Citations
 
-1. Kahneman, D., & Tversky, A. (1979). Prospect Theory: An Analysis of Decision under Risk. *Econometrica*, 47(2), 263-291.
-2. Tversky, A., & Kahneman, D. (1991). Loss Aversion in Riskless Choice: A Reference-Dependent Model. *The Quarterly Journal of Economics*, 106(4), 1039-1061.
-3. Thaler, R. H. (2015). *Misbehaving: The Making of Behavioral Economics*. W. W. Norton & Company.
-4. Thaler, R. H., & Sunstein, C. R. (2008). *Nudge: Improving Decisions About Health, Wealth, and Happiness*. Yale University Press.
-5. Barber, B. M., & Odean, T. (2001). Boys will be Boys: Gender, Overconfidence, and Common Stock Investment. *The Quarterly Journal of Economics*, 116(1), 261-292.
-6. Barber, B. M., & Odean, T. (2000). Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors. *The Journal of Finance*, 55(2), 773-806.
-7. Lo, A. W., Repin, D. V., & Steenbarger, B. N. (2005). Out of the Box: The Cognitive Neurosciences of Financial Decision Making. *Journal of Cognitive Neuroscience*, 17(8), 1300-1308.
+1. **Kahneman, D., & Tversky, A. (1979).** Prospect Theory: An Analysis of Decision under Risk. *Econometrica*, 47(2), 263-291.
+2. **Tversky, A., & Kahneman, D. (1991).** Loss Aversion in Riskless Choice: A Reference-Dependent Model. *The Quarterly Journal of Economics*, 106(4), 1039-1061.
+3. **Tversky, A., & Kahneman, D. (1992).** Advances in Prospect Theory: Cumulative Representation of Uncertainty. *Journal of Risk and Uncertainty*, 5(4), 297-323.
+4. **Benartzi, S., & Thaler, R. H. (1995).** Myopic Loss Aversion and the Equity Premium Puzzle. *The Quarterly Journal of Economics*, 110(1), 73-92.
+5. **Shiller, R. J. (2003).** From Efficient Markets Theory to Behavioral Finance. *Journal of Economic Perspectives*, 17(1), 83-104.
+6. **Barberis, N., & Thaler, R. (2003).** A Survey of Behavioral Finance. *Handbook of the Economics of Finance*, 1, 1053-1123.
+7. **Thaler, R. H. (2015).** *Misbehaving: The Making of Behavioral Economics*. W. W. Norton & Company.
+8. **Thaler, R. H., & Sunstein, C. R. (2008).** *Nudge: Improving Decisions About Health, Wealth, and Happiness*. Yale University Press.
+9. **Barber, B. M., & Odean, T. (2000).** Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors. *The Journal of Finance*, 55(2), 773-806.
+10. **Barber, B. M., & Odean, T. (2001).** Boys will be Boys: Gender, Overconfidence, and Common Stock Investment. *The Quarterly Journal of Economics*, 116(1), 261-292.
+11. **Barber, B. M., & Odean, T. (2013).** The Behavior of Individual Investors. *Handbook of the Economics of Finance*, 2, 1533-1611.
+12. **Lo, A. W., Repin, D. V., & Steenbarger, B. N. (2005).** Out of the Box: The Cognitive Neurosciences of Financial Decision Making. *Journal of Cognitive Neuroscience*, 17(8), 1300-1308.
+13. **Shefrin, H., & Statman, M. (1985).** The Disposition to Sell Winners Too Early and Ride Losers Too Long: Theory and Evidence. *The Journal of Finance*, 40(3), 777-790.
+14. **Daniel, K., Hirshleifer, D., & Subrahmanyam, A. (1998).** Investor Psychology and Security Market Under- and Overreactions. *The Journal of Finance*, 53(6), 1839-1885.

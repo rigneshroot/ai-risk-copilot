@@ -72,7 +72,9 @@ By combining NLP-based psychological scans with quantitative risk engineering, t
 
 ## 5. References & Citations
 
-1. Bollen, J., Mao, H., & Zeng, X. (2011). Twitter Mood Predicts the Stock Market. *Journal of Computational Science*, 2(1), 1-8.
-2. Tetlock, P. C. (2007). Giving Content to Investor Sentiment: The Role of Media in the Stock Market. *The Journal of Finance*, 62(3), 1139-1168.
-3. Lo, A. W., & Repin, D. V. (2002). The Psychophysiology of Real-Time Financial Decision Making. *Cognitive Brain Research*, 14(3), 323-339.
-4. Pang, B., & Lee, L. (2008). Opinion Mining and Sentiment Analysis. *Foundations and Trends in Information Retrieval*, 2(1–2), 1-135.
+1. **Bollen, J., Mao, H., & Zeng, X. (2011).** Twitter Mood Predicts the Stock Market. *Journal of Computational Science*, 2(1), 1-8.
+2. **Tetlock, P. C. (2007).** Giving Content to Investor Sentiment: The Role of Media in the Stock Market. *The Journal of Finance*, 62(3), 1139-1168.
+3. **Lo, A. W., & Repin, D. V. (2002).** The Psychophysiology of Real-Time Financial Decision Making. *Cognitive Brain Research*, 14(3), 323-339.
+4. **Pang, B., & Lee, L. (2008).** Opinion Mining and Sentiment Analysis. *Foundations and Trends in Information Retrieval*, 2(1–2), 1-135.
+5. **Kahneman, D., & Tversky, A. (1979).** Prospect Theory: An Analysis of Decision under Risk. *Econometrica*, 47(2), 263-291.
+6. **Barber, B. M., & Odean, T. (2001).** Boys will be Boys: Gender, Overconfidence, and Common Stock Investment. *The Quarterly Journal of Economics*, 116(1), 261-292.
